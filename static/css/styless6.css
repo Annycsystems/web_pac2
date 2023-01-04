@@ -1,0 +1,625 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+/*basic reset*/
+* {margin: 0; padding: 0;}
+
+html {
+	height: 100%;
+	/*Image only BG fallback*/
+
+	/*background = gradient + image pattern combo*/
+// 	background:
+// 		linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
+}
+
+body {
+	font-family: montserrat, arial, verdana;
+}
+/*form styles*/
+#msform {
+	width: 400px;
+	margin: 50px auto;
+	text-align: center;
+	position: relative;
+}
+#msform fieldset {
+	background: white;
+	border: 0 none;
+	border-radius: 3px;
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+	padding: 20px 30px;
+	box-sizing: border-box;
+	width: 80%;
+	margin: 0 10%;
+
+	/*stacking fieldsets above each other*/
+	position: relative;
+}
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+	display: none;
+}
+/*inputs*/
+#msform input, #msform textarea {
+	padding: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	width: 100%;
+	box-sizing: border-box;
+	font-family: montserrat;
+	color: #2C3E50;
+	font-size: 13px;
+}
+/*buttons*/
+#msform .action-button {
+	width: 100px;
+	background: #eb6619;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 5px;
+}
+#msform .action-button:hover, #msform .action-button:focus {
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #eb6619;
+}
+/*headings*/
+.fs-title {
+	font-size: 15px;
+	text-transform: uppercase;
+	color: #2C3E50;
+	margin-bottom: 10px;
+}
+.fs-subtitle {
+	font-weight: normal;
+	font-size: 13px;
+	color: #666;
+	margin-bottom: 20px;
+}
+/*progressbar*/
+#progressbar {
+	margin-bottom: 30px;
+	overflow: hidden;
+	/*CSS counters to number the steps*/
+	counter-reset: step;
+}
+#progressbar li {
+	list-style-type: none;
+	color: black;
+	text-transform: uppercase;
+	font-size: 9px;
+	width: 33.33%;
+	float: left;
+	position: relative;
+}
+#progressbar li:before {
+	content: counter(step);
+	counter-increment: step;
+	width: 20px;
+	line-height: 20px;
+	display: block;
+	font-size: 10px;
+	color: #333;
+	background: #f6ea63;
+	border-radius: 3px;
+	margin: 0 auto 5px auto;
+}
+/*progressbar connectors*/
+#progressbar li:after {
+	content: '';
+	width: 100%;
+	height: 2px;
+	background: yellow;
+	position: absolute;
+	left: -50%;
+	top: 9px;
+	z-index: -1; /*put it behind the numbers*/
+}
+#progressbar li:first-child:after {
+
+	content: none;
+}
+
+#progressbar li.active:before,  #progressbar li.active:after{
+	background: #eb6619;
+	color: white;
+}
+
+#modal {
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  position: fixed;
+  top: -100vh;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  transition: all .5s;
+}
+
+#modal p {
+  width: 60%;
+  height: 40%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+#mostrar-modal {
+  display: none;
+}
+#mostrar-modal + label {
+    display: inline-flex;
+    border-collapse:collapse;
+    border-width: 2px;
+    border-radius:8px;
+    display: block;
+    line-height: 2;
+    padding: 10;
+    cursor: pointer;
+    text-align: left;
+    position: relative;
+    width: 300px;
+    height: 40px;
+    right: 60%;
+    margin-top: 7px;
+    border-color: rgb(214,214,214);
+    border-style: solid;
+    background: #f0ecec;
+    font-family: TimesNewRoman;
+    font-weight: bold;
+    font-size: 18px;
+    color: grey;
+    border-radius: 8px;
+    transition: color 0.15s;
+    transition: background-color 0.15s;
+}
+#mostrar-modal + label:hover {
+  opacity: 0.8;
+}
+
+#mostrar-modal + label:active {
+        color: white;
+        background-color: rgb(235,102,25);
+        border: none;
+}
+
+#mostrar-modal:checked ~ #modal {
+  top: 0;
+}
+
+#cerrar-modal {
+  display: none;
+}
+#cerrar-modal + label {
+  position: absolute;
+  top: 5em;
+  right: 1em;
+  z-index: 200;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  background: tomato;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  border-radius: 50%;
+  transition: all .5s;
+}
+
+#cerrar-modal:checked ~ #modal {
+  top: -100vh;
+}
+
+#cerrar-modal + label {
+  display: none;
+}
+#mostrar-modal:checked ~ #cerrar-modal + label {
+  display: block;
+}
+#cerrar-modal:checked + label {
+  display: none;
+}
+
+.dat_cont{
+    color: #FFF;
+    font-size: 15pt;
+    font-family: 'arial';
+    letter-spacing: 1px;
+    padding: 10px 50px;
+    border: 1px solid #CCC;
+    background: rgba(13, 13, 13, 0.55);
+    border-radius: 31px;
+    text-decoration: none;
+    transition: .5s all;
+}
+.dat_cont:hover{
+    background: #eb6619;
+    color: #fffffe;
+    border: 1px solid #111;
+}
+
+button{
+        border-color: rgb(214,214,214);
+        border-style: solid;
+        color: gray;
+        font-weight: bold;
+        font-size: 18px;
+        border-radius: 8px;
+        transition: color 0.15s;
+        transition: background-color 0.15s;
+      }
+      .texto{
+        color: gray;
+<!--        font-weight: bold;-->
+        font-size: 2vw;
+      }
+
+      .soporte{
+        display: block;
+        width: 5vw;
+        height: 5vw;
+        border-radius: 50%;
+        background:rgb(235,102,25);
+        margin-top: 25px;
+        position: absolute;
+        right: 25px;
+      }
+      .bold{
+        font-weight: bold;
+        font-size: 30px;
+      }
+
+      .bold-small-centrado{
+        font-weight: bold;
+        font-size: 13px;
+        text-align: center;
+        width: 300 px;
+      }
+
+      .bold-small{
+        font-size: 22px;
+        font-weight: bold;
+      }
+
+      .bold-smaller{
+        font-size: 16px;
+        font-weight: bold;
+        margin-left: 360px;
+      }
+
+        td, th {
+            padding: 0 5px;
+        }
+      .select{
+        font-size: 15px;
+        width: 230px;
+        height: 35px;
+      }
+
+      .selectDatosG{
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 250px;
+        height: 35px;
+      }
+
+      .selectDatosG:hover{
+        opacity: 0.8;
+      }
+
+      .selectDatosG:focus{
+        color: white;
+        background-color: rgb(235,102,25);
+        border: none;
+      }
+
+      .select:hover{
+        opacity: 0.8;
+      }
+
+      .select:focus {
+        color: white;
+        background-color: rgb(235,102,25);
+        border: none;
+      }
+
+      button:visited{
+        color: white;
+        background-color: rgb(235,102,25);
+        border: none;
+      }
+
+      .enviar{
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-top: 10px;
+        margin-bottom: 0px;
+        width: 100px;
+        height: 35px;
+        color: white;
+        background-color: rgb(235,102,25);
+        border: none;
+      }
+
+      .enviar:hover{
+        opacity: 0.8;
+      }
+      .enviar:active{
+        opacity: 0.4;
+      }
+
+      .actualizacion{
+        text-align: center;
+        position: static;
+        right:  60%;
+        margin: 4px;
+        margin-top: 7px;
+        width: 200px;
+        height: 35px;
+      }
+
+      .aceptar{
+        margin-left: 345px;
+        margin-top: 10px;
+        width: 200px;
+        height: 30px;
+        text-align: center;
+      }
+
+      .actualizacion:hover, .aceptar:hover{
+        opacity: 0.8;
+      }
+
+      .actualizacion:focus, .aceptar:focus{
+        color: white;
+        background-color: rgb(235,102,25);
+        border: none;
+      }
+
+      .campo {
+        margin-top: 8px;
+        width: 70%;
+        border-color: rgb(214,214,214);
+        border-style: solid;
+        background-color: rgb(240,240,240);
+        border-radius: 8px;
+      }
+
+      .campocp {
+        margin-top: 8px;
+        width: 57.427%;
+        border-color: rgb(214,214,214);
+        border-style: solid;
+        background-color: rgb(240,240,240);
+        border-radius: 8px;
+      }
+
+      .camponum {
+        margin-top: 8px;
+        width: 27.6%;
+        border-color: rgb(214,214,214);
+        border-style: solid;
+        background-color: rgb(240,240,240);
+        border-radius: 8px;
+      }
+
+      .campon {
+        margin-top: 8px;
+        width: 50%;
+        border-color: rgb(214,214,214);
+        border-style: solid;
+        background-color: rgb(240,240,240);
+        border-radius: 8px;
+      }
+
+      .campo-centrado {
+        margin-top: 8px;
+        width: 50%;
+        border-color: rgb(214,214,214);
+        background-color: rgb(240,240,240);
+        border-radius: 8px;
+        margin-inline: auto;
+      }
+
+      .input-derecha {
+        text-align: right;
+        position: relative;
+      }
+
+      .btn btn-secondary btn-sm dropdown-toggle{
+        text-align: center;
+        color: blue;
+        background-color: red;
+      }
+
+      .desplegable{
+        margin-bottom: 10px;
+        border-color: rgb(214,214,214);
+        border-radius: 7px;
+        background-color: rgb(240,240,240);
+        color: gray;
+
+        font-weight: bold;
+        width: 150px;
+        height: 30px;
+      }
+
+      .grid {
+        margin-top: 8px;
+        text-align: center;
+        border: solid;
+        border-color: gray;
+
+        font-size: 26px;
+        color: gray;
+      }
+
+      .cen{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .EtiNom{
+        display: inline-block;
+        width: 125px;
+      }
+
+      .EtiNum{
+        display: inline-block;
+        width: 125px;
+      }
+
+      .EtiNom2{
+        display: inline-block;
+        width: 120px;
+      }
+
+      .progressContainer {
+          position: relative;
+          width: 300px;
+          height: 100vh;
+          margin: 0 auto;
+          overflow: hidden;
+          padding: $SPACER_LG;
+          color: #fff;
+          background: $PROGRESS_BG;
+          @include box-shadow(0 0 15px rgba(0, 0, 0, 0.3));
+        }
+
+        .progress {
+          position: relative;
+          padding: 0 $SPACER 0 3.5rem;
+          margin: $SPACER_LG 0 0;
+          list-style: none;
+        }
+
+        .progress__item {
+          position: relative;
+          min-height: $PROGRESS_LIST_HEIGHT;
+          counter-increment: list;
+          padding-left: $SPACER_XS;
+          &:before {
+            content: "";
+            position: absolute;
+            left: -1.5rem;
+            top: 33px;
+            height: 60%;
+            width: 1px;
+            border-left: 1px solid #fff;
+          }
+          &:after {
+            content: counter(list);
+            position: absolute;
+            top: 0;
+            left: -2.5rem;
+            width: $PROGRESS_COUNTER_WIDTH;
+            height: $PROGRESS_COUNTER_WIDTH;
+            border-radius: 50%;
+            background: transparent;
+            color: #fff;
+            font-weight: 400;
+            font-size: 13px;
+            line-height: 2rem;
+            text-align: center;
+            border: 1px solid #fff;
+          }
+          //Hide border for Last Step
+          &:last-child {
+            &:before {
+              border: none;
+            }
+          }
+          //Completed
+          &.progress__item--completed {
+            opacity: 0.6;
+            color: #fff;
+            &:after {
+              content: "\2713";
+              font-weight: 400;
+              background: #fff;
+              color: $PROGRESS_BG;
+            }
+          }
+          //Active
+          &.progress__item--active {
+            &:after {
+              background: #fff;
+              color: $PROGRESS_BG;
+            }
+          }
+        }
+
+        .progress__title {
+          padding: 0.4rem 0 $SPACER_XS;
+          margin: 0;
+          font-size: 1.5rem;
+        }
+
+        .progress__info {
+          font-size: 13px;
+        }
+
+              .social{
+            right: 0%;
+            display: flex;
+            flex-flow: row;
+       }
+
+        .socimg{
+            widt: 3%;
+            height: 3%;
+            max-width: 15%;
+            max-height: 15%;
+            margin-right: 5px;
+            float: right;
+        }
+
+      footer {
+          background-color: black;
+          position: absolute;
+          bottom: 0%;
+          width: 100%;
+          height: 60px;
+          color: white;
+        }
+        .hijo {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          width: 100%;
+          height: 30%;
+          margin: auto;
+        }
+
+        .hijosoc {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 42%;
+          right: 10;
+          margin: 7px 0px;
+        }
+        .form-check-input:checked {
+            background-color: #eb6619;
+            border-color: pink;
+        }
+<!--        .form-switch .form-check-input {-->
+<!--          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='red'/%3e%3c/svg%3e");-->
+<!--        }-->
+<!--        .form-switch .form-check-input:focus {-->
+<!--          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='pink'/%3e%3c/svg%3e");-->
+<!--        }-->
