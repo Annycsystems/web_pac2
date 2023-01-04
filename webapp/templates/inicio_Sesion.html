@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Inicio de sesión</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="{% static 'css/styless6.css' %}" rel="stylesheet" id="style">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+      .natura{
+        width: 15%;
+        height: 15%;
+        margin-left: 10px;
+        margin-top: 10px;
+      }
+
+      .texto-bold {
+        font-size: 25px;
+        font-weight: bold;
+        margin-top: 18px;
+      }
+
+      .texto-bold-small {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 18px;
+        color: gray;
+      }
+
+      .texto-gris {
+        font-size: 18px;
+        font-family: TimesNewRoman;
+        font-weight: bold;
+        color: gray;
+        text-align: left;
+      }
+
+      .campo {
+        width: 100%;
+        height: 35px;
+        margin-top: 6px;
+        border-color: rgb(214,214,214);
+        border-style: solid;
+        background-color: rgb(240,240,240);
+        border-radius: 8px;
+      }
+
+      .boton {
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 250px;
+        height: 35px;
+        border-color: rgb(214,214,214);
+        border-style: solid;
+        border-radius: 8px;
+        transition: color 0.15s;
+        transition: background-color 0.15s;
+      }
+
+      .boton:hover{
+        color: white;
+        background-color: rgb(235,102,25);
+        border: none;
+      }
+
+      .boton:focus{
+        color: white;
+        background-color: rgb(235,102,25);
+        border: none;
+      }
+
+      .boton:active{
+        opacity: 70%;
+      }
+    </style>
+</head>
+<body>
+  <div class="mx-auto" style="margin-top: 1%; text-align: center;">
+    <img class="natura" src="/web_pac2/static/css/imgs/LOGO NATURA.png">
+    <p class="texto-bold">Bienvenido</p>
+    <p class="texto-bold-small">Introduce tus credenciales</p>
+    <div class="mx-auto" style="width: 30%; text-align: left;">
+      <span class="texto-gris">Nombre de usuario </span><br><input type="text" class="campo"><br>
+      <span class="texto-gris">Contraseña </span><br><input type="text" class="campo"><br>
+    </div>
+    <button class="boton" style="margin-top: 20px;margin-bottom: 15px;">Iniciar sesión</button><br>
+    <button type="button" class="boton" data-toggle="modal" data-target="#myModal">Nuevo usuario</button>
+            <div class="modal fade" id="myModal" role="dialog" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title w-100 text-center">Registronuevo usuario</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                      <form method="POST">
+                            <table >
+                                {{ forma_nuevo_usuario }}
+                            </table>
+                        <button type="submit">Registrar</button>
+                            {% csrf_token %}
+                        </form>
+                </div>
+<!--                <div class="modal-footer">-->
+<!--                  <a href="https://minegocio.natura.com.mx/ingreso/mx?return_url=" target="_blank" onClick="window.open(this.href); return false;" data-dismiss="modal">Continuar</a>-->
+<!--                </div>-->
+                </div>
+
+                </div>
+            </div>
+      <p>¿Olvidaste tu contraseña? Reestablecela<br><br> <a class="dat_cont" href="recuperar" target="_blank"> Aqui </a></p>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

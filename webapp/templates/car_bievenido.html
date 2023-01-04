@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ADN Natura</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" id="style">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <style>
+          .cen{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+          }
+
+              .social{
+            right: 0%;
+            display: flex;
+            flex-flow: row;
+       }
+
+        .socimg{
+            widt: 3%;
+            height: 3%;
+            max-width: 15%;
+            max-height: 15%;
+            margin-right: 5px;
+            float: right;
+        }
+
+      footer {
+          background-color: black;
+          position: absolute;
+          bottom: 0%;
+          width: 100%;
+          height: 60px;
+          color: white;
+        }
+        .hijo {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          width: 100%;
+          height: 30%;
+          margin: auto;
+        }
+
+        .hijosoc {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 42%;
+          right: 10;
+          margin: 7px 0px;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            var tex2
+            var tex3
+            var strquotes = /(')/g
+                tex2= "{{ data2|safe }}"
+                tex3= tex2.length
+                tex2= tex2.substr(11,tex3)
+                tex3= tex2.length-2
+                tex2= tex2.substr(0,tex3)
+                tex2= tex2.replace(strquotes, String.fromCharCode(34))
+            var prue2 = JSON.parse(tex2);
+                tex2= "CN=" + prue2.Codigo_CN
+                document.cookie = tex2;
+        });
+
+        if(document.querySelector('#container-slider')){
+           setInterval('fntExecuteSlide("next")',5000);
+        }
+        //------------------------------ LIST SLIDER -------------------------
+        if(document.querySelector('.listslider')){
+           let link = document.querySelectorAll(".listslider li a");
+           link.forEach(function(link) {
+              link.addEventListener('click', function(e){
+                 e.preventDefault();
+                 let item = this.getAttribute('itlist');
+                 let arrItem = item.split("_");
+                 alert(arrItem[1]);
+                 fntExecuteSlide(arrItem[1]);
+                 return false;
+              });
+            });
+        }
+
+        function fntExecuteSlide(side){
+            let parentTarget = document.getElementById('slider');
+            let elements = parentTarget.getElementsByTagName('li');
+            let curElement, nextElement;
+
+            for(var i=0; i<elements.length; i++){
+<!--                alert(elements[i].style.opacity)-->
+                if(elements[i].style.opacity == 1){
+                    curElement = i;
+                    if(curElement-1 == 0 && side == 'prev'){
+                        document.getElementById('pv').style.display = 'none';
+                    }if(curElement == 0){
+                        document.getElementById('pv').style.display = 'block';
+                    }
+                    if(curElement == 4 && side == 'next'){
+                        document.getElementById('nt').style.display = 'none';
+                    }
+                    else{
+                        document.getElementById('nt').style.display = 'block';
+                    }
+                    break;
+                }
+            }
+            if(side == 'prev' || side == 'next'){
+
+                if(side=="prev"){
+                    if(curElement > 0){
+                    nextElement = (curElement == 0)?elements.length -1:curElement -1;
+                    }
+                }else{
+                    if(curElement < 5){
+                    nextElement = (curElement == elements.length -1)?0:curElement +1;
+                    }
+                }
+            }else{
+                nextElement = side;
+                side = (curElement > nextElement)?'prev':'next';
+
+            }
+            //RESALTA LOS PUNTOS
+            let elementSel = document.getElementsByClassName("listslider")[0].getElementsByTagName("a");
+            elementSel[curElement].classList.remove("item-select-slid");
+            elementSel[nextElement].classList.add("item-select-slid");
+            elements[curElement].style.opacity=0;
+            elements[curElement].style.zIndex =0;
+            elements[nextElement].style.opacity=1;
+            elements[nextElement].style.zIndex =1;
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <div class="row">
+            <div class="col" style="background :#eb6619; margin: auto; color: #ffffff; align-items: flex-start;">
+               <img style="max-width: 25%; max-height: 25%; position: absolute; top: 5px; left: 25px;" src="web_pac2/static/css/imgs/logo_nat.png" >
+            </div>
+        </div>
+        <div class="row">
+            <div class="col cen">
+                <section id="container-slider">
+                <a id="pv" href="javascript: fntExecuteSlide('prev');" class="arrowPrev" style="display:none;"><i class="fas fa-chevron-circle-left"></i></a>
+                <a id="nt" href="javascript: fntExecuteSlide('next');" class="arrowNext"><i class="fas fa-chevron-circle-right"></i></a>
+                <ul class="listslider">
+                    <li><a id="itList_0" href="#" class="item-select-slid"></a></li>
+                    <li><a id="itList_1" href="#"></a></li>
+                    <li><a id="itList_2" href="#"></a></li>
+                    <li><a id="itList_3" href="#"></a></li>
+                    <li><a id="itList_4" href="#"></a></li>
+                    <li><a id="itList_5" href="#"></a></li>
+                </ul>
+                <ul id="slider">
+                <li style="opacity: 1;">
+                <div class="content_slider" >
+                    <div>
+                        <h3 ><b>Bienvenido(a) Consultor(a) de Belleza Natura</b></h3><br>
+                        <img style="max-width: 20%; max-height: 20%;" src="web_pac2/static/css/imgs/house.png"><br>
+                    <p style="font-size: 25px;">Creamos este espacio para ti. <br>
+                       Aquí podrás actualizar tus datos de manera ágil y sencilla.<br>¡Conoce los beneficios!</p>
+                    </div>
+                </div>
+                </li>
+                <li style="opacity: 0;">
+                <div class="content_slider" >
+                    <div>
+                        <img style="max-width: 20%; max-height: 20%;" src="web_pac2/static/css/imgs/writing.png">
+                     <p style="font-size: 25px;">1. Podrás validar el estatus de tus solicitudes en tiempo real</p>
+                    </div>
+                </div>
+                </li>
+                <li style="opacity: 0;">
+                <div class="content_slider" >
+                    <div>
+                        <img style="max-width: 15%; max-height: 15%;" src="web_pac2/static/css/imgs/correct.png">
+                    <p style="font-size: 25px;">2. Tus datos serán tratados y protegidos conforme a nuestro Aviso de Privacidad</p>
+                    </div>
+                </div>
+                </li>
+                <li style="opacity: 0;">
+                <div class="content_slider" >
+                    <div>
+                        <img style="max-width: 20%; max-height: 20%;" src="web_pac2/static/css/imgs/laptop.png">
+                    <p style="font-size: 25px;"><br>3. Integramos nuevos candados de seguridad para proteger<br> la información de tu cuenta ante malas prácticas.</p>
+                    </div>
+                </div>
+                </li>
+                <li style="opacity: 0;">
+                <div class="content_slider" >
+                    <div>
+                        <img style="max-width: 20%; max-height: 20%;" src="web_pac2/static/css/imgs/world.png">
+                    <p style="font-size: 25px;">4. ¡Adiós formatos! Realiza tu trámite en línea y <br>cuidemos al medio ambiente</p>
+                    </div>
+                </div>
+                </li>
+                <li style="opacity: 0;">
+                <div class="content_slider" >
+                    <div>
+                        <img style="max-width: 20%; max-height: 20%;" src="web_pac2/static/css/imgs/cont.png">
+                    <p style="font-size: 25px;">Y si necesitas soporte, puedes contactarnos al:<br>
+                        Centro de Atención Natura (CAN) - 55 5001 7801 </p>
+                    <a href="Menu" class="btnSlider" id="item_1">Continuar</a>
+                    </div>
+                </div>
+                </li>
+                </ul>
+                </section>
+            </div>
+        </div>
+    </div>
+    <footer style="height: 50px; width: 100%; overflow: hidden; background-color:#000000;">
+        <div class="cen" style="text-align: center;">
+            <table>
+                <tr>
+                    <div style="display:inline-block; position: absolute; text-align: center;">
+                        <h4 style="color: #ffffff;margin-top: 5px;"><b>Consulta nuestro Aviso de Privacidad.</b></h4>
+                    </div>
+                    <td style="text-align: right;">
+                        <div style="width:15%; display: inline-block; text-align: right; margin-top: 5px; vertical-align: text-bottom;">
+                            <a href="https://mx.linkedin.com/company/natura-mexico" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/linkedin.png" alt="inkedin"></a>
+                            <a href="https://www.instagram.com/natura.mexico/?hl=es" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/instagram.png" alt="instagram"></a>
+                            <a href="https://twitter.com/natura_mexico" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/twitter.png" alt="twitter"></a>
+                            <a href="https://www.youtube.com/@naturamx" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/youtube.png" alt="youtube"></a>
+                            <a href="https://www.facebook.com/natura.mexico" target="_blank"><img class="socimg" src="web_pac2/static/css/imgs/facebook-logo.png" alt="facebook"></a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

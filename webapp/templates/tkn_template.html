@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ADN Natura</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="{% static 'css/styless_bienvenido.css' %}" rel="stylesheet" id="style">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        body {
+            background-image: url("web_pac2/static/css/imgs/logo_nat.png");
+            background-repeat: no-repeat;
+            background-size: 25%;
+            background-position: 5% 5%;
+        }
+
+                .social{
+            right: 0%;
+            display: flex;
+            flex-flow: row;
+       }
+
+        .socimg{
+            widt: 3%;
+            height: 3%;
+            max-width: 15%;
+            max-height: 15%;
+            margin-right: 5px;
+            float: right;
+        }
+
+      footer {
+          background-color: black;
+          position: absolute;
+          bottom: 0%;
+          width: 100%;
+          height: 60px;
+          color: white;
+        }
+        .hijo {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          width: 100%;
+          height: 30%;
+          margin: auto;
+        }
+
+        .hijosoc {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 42%;
+          right: 10;
+          margin: 7px 0px;
+        }
+
+    .camponum {
+        margin-top: 8px;
+        width: 70%;
+        border-color: rgb(214,214,214);
+        border-style: solid;
+        background-color: rgb(240,240,240);
+        border-radius: 8px;
+      }
+    .EtiNum{
+        display: inline-block;
+        width: 175px;
+    }
+    *{box-sizing: border-box; padding: 0; margin: 0; text-align: center; font-family: verdana;}
+
+    .inputct
+    {
+      width: 100%;
+      font-size: 18pt;
+      text-align: center;
+      outline: none;
+      border:  none;
+      padding: 10pt;
+      line-height: 26pt;
+      background: rgba(255,255,255,.0);
+      color: gray;
+    }
+      .cen{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          align-content: center;
+          flex-wrap: wrap;
+      }
+      .form-check-input:checked {
+            background-color: #eb6619;
+            border-color: pink;
+        }
+
+      .enviar{
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-top: 10px;
+        margin-bottom: 0px;
+        width: 100px;
+        height: 35px;
+        color: white;
+        background-color: rgb(235,102,25);
+        border: none;
+      }
+
+      .enviar:hover{
+        opacity: 0.8;
+      }
+      .enviar:active{
+        opacity: 0.4;
+      }
+
+
+    </style>
+    <script>
+
+        let seg = 69000;
+        var countDownDate = Date.now() + seg;
+        function getTime() {
+            var flags = document.getElementById("flag").value;
+            var text = document.getElementById("input1").value;
+            if(flags == 1){
+                document.getElementById("input1").style.display = 'none';
+<!--                document.getElementById("input2").style.display = 'block';-->
+<!--                document.timeForm.input2.value = text;-->
+                return true;
+            }
+
+            now = new Date();
+            y2k = countDownDate;
+
+            days = (y2k - now) / 1000 / 60 / 60 / 24;
+            daysRound = Math.floor(days);
+            hours = (y2k - now) / 1000 / 60 / 60 - (24 * daysRound);
+            hoursRound = Math.floor(hours);
+            minutes = (y2k - now) / 1000 /60 - (24 * 60 * daysRound) - (60 * hoursRound);
+            minutesRound = Math.floor(minutes);
+            seconds = (y2k - now) / 1000 - (24 * 60 * 60 * daysRound) - (60 * 60 * hoursRound) - (60 * minutesRound);
+            secondsRound = Math.round(seconds);
+            sec = (secondsRound == 1) ? " seg" : " seg";
+            min = (minutesRound == 1) ? " min " : " min ";
+            document.timeForm.input1.value = "  " +  minutesRound + min + secondsRound + sec + " ";
+            newtime = window.setTimeout("getTime();", 1000);
+            if(minutesRound==0 && secondsRound >> 0){
+                document.getElementById("txttkn").innerHTML="La clave que te enviamos está por caducar,<br> click para enviar nuevamente:<br>"
+                document.getElementById("btnpruebamodal").style.display = "flex";
+                document.getElementById("btnpruebamodal").innerHTML='<input type="button" id="btnenvi" name="btnenvi" class="cen btn btn-secondary btn-sm" value="Enviar nuevamente" onclick="location.reload()"><br>';
+            }
+
+        }
+		    window.onload=getTime
+
+        function showContent() {
+<!--            var lasCookies = document.cookie.replace(/(?:(?:^|.*;\s*)CN\s*\=\s*([^;]*).*$)|^.*$/, "$1");-->
+<!--            $("#codi").val(lasCookies);-->
+            element = document.getElementById("formdomi");
+            check = document.getElementById("op1");
+            if (check.checked) {
+                document.getElementById("CP_Sol").readOnly = false;
+                document.getElementById("CALLE_Sol").readOnly = false;
+                document.getElementById("NUM_int_Sol").readOnly = false;
+                document.getElementById("NUM_ext_Sol").readOnly = false;
+                document.getElementById("REF_Sol").readOnly = false;
+
+                document.getElementById("CP_Sol").style.backgroundColor = "#ffffff";
+                document.getElementById("CALLE_Sol").style.backgroundColor = "#ffffff";
+                document.getElementById("NUM_int_Sol").style.backgroundColor = "#ffffff";
+                document.getElementById("NUM_ext_Sol").style.backgroundColor = "#ffffff";
+                document.getElementById("REF_Sol").style.backgroundColor = "#ffffff";
+            }
+            else{
+                document.getElementById("CP_Sol").readOnly = true;
+                document.getElementById("CALLE_Sol").readOnly = true;
+                document.getElementById("NUM_int_Sol").readOnly = true;
+                document.getElementById("NUM_ext_Sol").readOnly = true;
+                document.getElementById("REF_Sol").readOnly = true;
+
+                document.getElementById("CP_Sol").style.backgroundColor = "#e0e0e0";
+                document.getElementById("CALLE_Sol").style.backgroundColor = "#e0e0e0";
+                document.getElementById("NUM_int_Sol").style.backgroundColor = "#e0e0e0";
+                document.getElementById("NUM_ext_Sol").style.backgroundColor = "#e0e0e0";
+                document.getElementById("REF_Sol").style.backgroundColor = "#e0e0e0";
+            }
+        }
+
+        function validartkn(){
+            var tkn = document.getElementById("tkn_txt").value;
+            var nvotkn = CryptoJS.SHA256(tkn);
+            var tknval = document.cookie.replace(/(?:(?:^|.*;\s*)tkn\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+            if(nvotkn == tknval){
+                document.getElementById('tkn_txt').readOnly = true;
+                document.getElementById("envform").style.display = 'block';
+                document.getElementById("btnenvi").style.display = 'none';
+                document.getElementById("tkn_txt").style.display = 'none';
+                document.getElementById("tkn_btn").style.display = 'none';
+                document.getElementById("txttkn").innerHTML="Clave introducida correctamente<br>"
+                document.timeForm.flag.value = '1'
+            }
+            else{
+                alert("La clave OTP ingresada no coincide, favor de verificar");
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <div class="row">
+        <div class="cen col-xs-12 col-sm-5 col-md-5">
+            <p id="txttkn" align="center">Ingresa la clave dinamica que acabas de recibir,<br>
+					la cual será valida durante:</p>
+            <div id="btnpruebamodal"></div><br>
+             <form name=timeForm>
+                <input class="inputct" type="text" id="input1" name="input1" readonly>
+                <input class="inputct" type="text" id="input2" name="input2" readonly style="display:none;">
+                 <INPUT id="flag" name="flag" style="display:none;">
+             </form>
+
+            <input id="tkn_txt" type="text" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" maxlength="6"><br><br>
+            <button id="tkn_btn" type="button" class="enviar btn btn-secondary btn-sm" onclick="validartkn()">Validar</button>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-5s" style="width: 50%;">
+            <form id="formcon" name="formcon" action="Inicio"  method="post" enctype="multipart/form-data" style="margin: 39px 0px; padding: 0px 0px 20px; border-radius: 15px;">{% csrf_token %}
+             <fieldset>
+              <legend>Confirmación de información:</legend>
+                    <div class="cen form-check form-switch">
+                      <input class="form-check-input" id="op1" value="Entrega" type="checkbox" role="switch" id="flexSwitchCheck1" onchange="javascript:showContent()">
+                      <label class="form-check-label" for="flexSwitchCheck1">&ensp;Modificar información&ensp;&ensp;</label>
+                    </div>
+              <input type= "text" class="camponum" class="camponum" id="CN_sol" name="CN_sol" value="{{ docs.CodigoCN_pers }}" readonly required style="display:none;">
+               <label for="T_sol" class="EtiNum">Tipo de solicitud :</label>
+              <input type= "text" class="camponum" class="camponum" id="T_sol" name="T_sol" value="CAMBIO DE {{ docs.Tipo_sol }}" readonly required><br>
+
+              <label for="D_Sol" class="EtiNum">Detalle solicitud:</label>
+              <input type= "text" class="camponum" class="camponum" id="D_Sol" name="D_Sol" value="{{ docs.Detalle_sol }}" readonly required><br>
+
+              <label for="CP_sol" class="EtiNum">Código Postal:</label>
+              <input type= "text" class="camponum" class="camponum" id="CP_Sol" name="CP_Sol" value="{{ docs.cp_sol }}" readonly required>
+              <button id="btncp" class="enviar" onclick="Bus_CP()" style="display:none;">Consultar</button><br>
+
+             <label for="EDO_sol" class="EtiNum">Estado:</label>
+              <input type= "text" class="camponum" id="EDO_Sol" name="EDO_Sol" value="{{ docs.estado_sol }}" readonly required><br>
+
+              <label for="Alc_sol" class="EtiNum">Alcaldía/Municipio:</label>
+              <input type= "text" class="camponum" id="Alc_Sol" name="Alc_Sol" value="{{ docs.alc_mun_sol }}" readonly required><br>
+
+              <label for="Col_sol" class="EtiNum">Colonia:</label>
+              <input type= "text" class="camponum" id="Col_Sol" name="Col_Sol" value="{{ docs.colonia_sol }}" readonly required><br>
+
+              <label for="CALLE_sol" class="EtiNum">Calle:</label>
+              <input type= "text" class="camponum" id="CALLE_Sol" name="CALLE_Sol" value="{{ docs.calle_sol }}" readonly required><br>
+
+              <label for="NUM_int_sol" class="EtiNum">Número de interior:</label>
+              <input type= "text" class="camponum" id="NUM_int_Sol" name="NUM_int_Sol" value="{{ docs.NumInt_sol }}" readonly required><br>
+
+              <label for="NUM_ext_sol" class="EtiNum">Número de exterior:</label>
+              <input type= "text" class="camponum" id="NUM_ext_Sol" name="NUM_ext_Sol" value="{{ docs.NumExt_sol }}" readonly required><br>
+
+              <label for="REF_sol" class="EtiNum">Referencias:</label>
+              <input type="text" class="camponum" id="REF_Sol" name="REF_Sol" value="{{ docs.Ref_sol }}" readonly required><br>
+
+             <label class="EtiNum" >INE Frente/reverso </label>
+            <input type="file" class="camponum INEUp" style="display: inline;" name="INEUp" id="INEUp" required accept=".png, .jpg, .jpeg,.pdf">
+
+              <input type="submit" id="envform" name="envform" class="enviar" value="Enviar" style="display:none;">
+             </fieldset>
+            </form>
+        </div>
+    </div>
+    <footer style="height: 50px; width: 100%; overflow: hidden; background-color:#000000;">
+        <div class="cen" style="text-align: center;">
+            <table>
+                <tr>
+                    <div style="display:inline-block; position: absolute; text-align: center;">
+                        <h4 style="color: #ffffff;margin-top: 5px; font-size:18px;"><b>Consulta nuestro Aviso de Privacidad.</b></h4>
+                    </div>
+                    <td style="text-align: right;">
+                        <div style="width:15%; display: inline-block; text-align: right; margin-top: 5px; vertical-align: text-bottom;">
+                            <a href="https://mx.linkedin.com/company/natura-mexico" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/linkedin.png" alt="inkedin"></a>
+                            <a href="https://www.instagram.com/natura.mexico/?hl=es" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/instagram.png" alt="instagram"></a>
+                            <a href="https://twitter.com/natura_mexico" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/twitter.png" alt="twitter"></a>
+                            <a href="https://www.youtube.com/@naturamx" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/youtube.png" alt="youtube"></a>
+                            <a href="https://www.facebook.com/natura.mexico" target="_blank"><img class="socimg" src="web_pac2/static/css/imgs/facebook-logo.png" alt="facebook"></a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </footer>
+</body>
+</html>

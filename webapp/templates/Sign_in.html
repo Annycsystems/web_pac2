@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method="POST">
+        <table>
+            {{ forma_nuevo_usuario }}
+        </table>
+    <button type="submit">Registrar</button>
+        {% csrf_token %}
+    </form>
+</body>
+</html>
