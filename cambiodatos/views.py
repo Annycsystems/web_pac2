@@ -37,10 +37,11 @@ def search_pers(request):
     if exis:
         # print("ok")
         persons = Consultora.objects.filter(cn=search)
-        acce = Consultora.objects.filter(cn=search).values("first_Acces")
-        vali = str(acce[0]["first_Acces"])
+        acce = Consultora.objects.filter(cn=search).values("first_acces")
+        vali = str(acce[0]["first_acces"])
         data = Consultora.objects.filter(cn=search).values("email", "num_celular_normalizado")
         data2 = Consultora.objects.filter(cn=search).values("cn")
+        print(data2);
         if vali == '1':
             return render(request, 'cambiodatos/car_bievenido.html', {'persons': persons, 'data': data, 'data2': data2})
         else:

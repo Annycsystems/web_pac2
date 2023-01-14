@@ -94,7 +94,7 @@ class Consultora(models.Model):
                              on_delete=models.PROTECT, related_name="consultoras")
      creado = models.DateTimeField(auto_now_add=True, db_index=True)
      actualizado = models.DateTimeField(auto_now=True, db_index=True)
-     First_Acces = models.CharField(max_length=255, null=True)
+     first_acces = models.CharField(max_length=255, null=True)
 
 class Primer_Registro(models.Model):
     Codigocn_Pers = models.CharField(max_length=255)

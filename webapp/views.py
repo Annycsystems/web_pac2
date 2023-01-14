@@ -37,8 +37,8 @@ def search_pers(request):
     if exis:
         # print("ok")
         persons = Consultora.objects.filter(cn=search)
-        acce = Consultora.objects.filter(cn=search).values("first_Acces")
-        vali = str(acce[0]["first_Acces"])
+        acce = Consultora.objects.filter(cn=search).values("first_acces")
+        vali = str(acce[0]["first_acces"])
         data = Consultora.objects.filter(cn=search).values("email", "num_celular_normalizado")
         data2 = Consultora.objects.filter(cn=search).values("cn")
         if vali == '1':
@@ -106,7 +106,7 @@ def uploadFile(request):
         if str(str(resp["estatus"])) == "OK":
             document.save()
             documents = Primer_Registro.objects.all()
-            Consultora.objects.filter(cn=Cod).update(first_Acces='0')
+            Consultora.objects.filter(cn=Cod).update(first_acces='0')
             acce = Consultora.objects.filter(cn=Cod).values("email")
             acce2 = Consultora.objects.filter(cn=Cod).values("nombre")
             corr = str(acce[0]["email"])
