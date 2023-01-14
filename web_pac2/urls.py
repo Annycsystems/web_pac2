@@ -2,8 +2,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 from web_pac2 import settings
-from webapp import views
-from webapp.views import bienvenido, uploadFile, search_pers, rec_pass, new_pers, bienvenidos, main, \
+from cambiodatos import views
+from cambiodatos.views import bienvenido, uploadFile, search_pers, rec_pass, new_pers, bienvenidos, main, \
     uploadTickdirect, main_menu, send_email, Tick_val
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
