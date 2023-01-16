@@ -53,7 +53,7 @@
                 tex2= tex2.substr(0,tex3)
                 tex2= tex2.replace(strquotes, String.fromCharCode(34))
             var prue2 = JSON.parse(tex2);
-                tex2= "CN=" + prue2.Codigo_CN
+                tex2= "CN=" + prue2.cn
                 document.cookie = tex2;
         });
 
@@ -273,8 +273,8 @@
                 tex2= tex2.substr(0,tex3)
                 tex2= tex2.replace(strquotes, String.fromCharCode(34))
             var prue2 = JSON.parse(tex2);
-            busq2= prue2.tel_cel.length;
-            tel = prue2.tel_cel.substr(0,2) + '*****' + prue2.tel_cel.substr(7,10)
+            busq2= prue2.num_celular_normalizado.length;
+            tel = prue2.num_celular_normalizado.substr(0,2) + '*****' + prue2.num_celular_normalizado.substr(7,10)
             ema= "Teléfono celular registrado: </br>" + tel
             document.getElementById('cont1').innerHTML=ema;
             $("#run").show();

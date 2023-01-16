@@ -180,7 +180,7 @@ def uploadTickdirect(request):
             acce = Consultora.objects.filter(cn=CodigoCN_pers).values("email")
             acce2 = Consultora.objects.filter(cn=CodigoCN_pers).values("nombre")
             corr = str(acce[0]["email"])
-            nom = str(acce2[0]["Nombre_CN"])
+            nom = str(acce2[0]["nombre"])
             temp = "cambiodatos/correo_tkn.html"
             adi = ""
             folio = tk_via
@@ -205,53 +205,53 @@ def Tick_val(request):
             tik = 'MD-' + val_fol + '-' + str(nowy)
         else:
             tik = 'MD-' + str(val_fol) + '-' + str(nowy)
-        CodigoCN_pers = request.POST["CN_sol"]
-        Tipo_sol = "DOMICILIO"
-        Detalle_sol = request.POST["D_Sol"]
+        codigocn_pers = request.POST["CN_sol"]
+        tipo_sol = "DOMICILIO"
+        detalle_sol = request.POST["D_Sol"]
         cp_sol = request.POST["CP_Sol"]
         estado_sol = request.POST["EDO_Sol"]
         alc_mun_sol = request.POST["Alc_Sol"]
         colonia_sol = request.POST["Col_Sol"]
         calle_sol = request.POST["CALLE_Sol"]
-        NumInt_sol = request.POST["NUM_int_Sol"]
-        NumExt_sol = request.POST["NUM_ext_Sol"]
-        Ref_sol = request.POST["REF_Sol"]
-        Fecha_sol = now
-        Status_sol = "Abierto"
+        numint_sol = request.POST["NUM_int_Sol"]
+        numext_sol = request.POST["NUM_ext_Sol"]
+        ref_sol = request.POST["REF_Sol"]
+        fecha_sol = now
+        status_sol = "Abierto"
         fecha_ult_mod = now
-        Doc1_sol = request.FILES["INEUp"]
+        doc1_sol = request.FILES["INEUp"]
         id_sol = tik
-        Doc1_sol.name = id_sol + "_" + Doc1_sol.name
-        usr_mod = 'CN ' + CodigoCN_pers
+        doc1_sol.name = id_sol + "_" + doc1_sol.name
+        usr_mod = 'CN ' + codigocn_pers
         document = Usr_Sol_Dom(
-            CodigoCN_pers=CodigoCN_pers,
-            Tipo_sol=Tipo_sol,
-            Detalle_sol=Detalle_sol,
+            codigocn_pers=codigocn_pers,
+            tipo_sol=tipo_sol,
+            detalle_sol=detalle_sol,
             cp_sol=cp_sol,
             estado_sol=estado_sol,
             alc_mun_sol=alc_mun_sol,
             colonia_sol=colonia_sol,
             calle_sol=calle_sol,
-            NumInt_sol=NumInt_sol,
-            NumExt_sol=NumExt_sol,
-            Ref_sol=Ref_sol,
-            Fecha_sol=Fecha_sol,
-            Status_sol=Status_sol,
+            numint_sol=numint_sol,
+            numext_sol=numext_sol,
+            ref_sol=ref_sol,
+            fecha_sol=fecha_sol,
+            status_sol=status_sol,
             fecha_ult_mod=fecha_ult_mod,
-            Doc1_sol=Doc1_sol,
+            doc1_sol=doc1_sol,
             id_sol=id_sol
         )
         document.save()
         document2 = Track_Sol(
             id_sol=id_sol,
-            Status_sol=Status_sol,
-            fecha_ult_mod=Fecha_sol,
+            status_sol=status_sol,
+            fecha_ult_mod=fecha_sol,
             usuario_mod_sol=usr_mod
         )
         document2.save()
         messages.success(request, 'Solicitud enviada con éxito Número de folio:' + id_sol + ".")
-        data = Consultora.objects.filter(cn=CodigoCN_pers).values("email", "tel_cel")
-        data2 = Consultora.objects.filter(cn=CodigoCN_pers).values("Codigo_CN")
+        data = Consultora.objects.filter(cn=codigocn_pers).values("email", "num_celular_normalizado")
+        data2 = Consultora.objects.filter(cn=codigocn_pers).values("cn")
         response = redirect('/main')
         return render(request, "cambiodatos/menuPrincipal.html", {'data': data, 'data2': data2})
     return render(request, "cambiodatos/menuPrincipal.html")

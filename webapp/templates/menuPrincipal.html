@@ -267,64 +267,66 @@
             var ema
             var strquotes = /(')/g
                 tex2= "{{ data|safe }}"
+                alert(text2)
                 tex3= tex2.length
                 tex2= tex2.substr(11,tex3)
                 tex3= tex2.length-2
                 tex2= tex2.substr(0,tex3)
                 tex2= tex2.replace(strquotes, String.fromCharCode(34))
             var prue2 = JSON.parse(tex2);
-            busq2= prue2.tel_cel.length;
-            tel = prue2.tel_cel.substr(0,2) + '*****' + prue2.tel_cel.substr(7,10)
+            print(prue2);
+            busq2= prue2.num_celular_normalizado.length;
+            tel = prue2.num_celular_normalizado.substr(0,2) + '*****' + prue2.num_celular_normalizado.substr(7,10)
             ema= "Teléfono celular registrado: </br>" + tel
             document.getElementById('cont1').innerHTML=ema;
             $("#run").show();
         });
         });
 
-        $(function(){
-        $('input[type=radio][name=OTP2][value=SMS]').change(function() {
-            var tex2
-            var tex3
-            var busq
-            var busq2
-            var ema
-            var strquotes = /(')/g
-                tex2= "{{ data|safe }}"
-                tex3= tex2.length
-                tex2= tex2.substr(11,tex3)
-                tex3= tex2.length-2
-                tex2= tex2.substr(0,tex3)
-                tex2= tex2.replace(strquotes, String.fromCharCode(34))
-            var prue2 = JSON.parse(tex2);
-            busq2= prue2.tel_cel.length;
-            tel = prue2.tel_cel.substr(0,2) + '*****' + prue2.tel_cel.substr(7,10)
-            ema= "Teléfono celular registrado: </br>" + tel
-            document.getElementById('cont2').innerHTML=ema;
-            $("#run2").show();
-        });
-        });
-        $(function(){
-                $('input[type=radio][name=OTP3][value=SMS]').change(function() {
-                    var tex2
-                    var tex3
-                    var busq
-                    var busq2
-                    var ema
-                    var strquotes = /(')/g
-                        tex2= "{{ data|safe }}"
-                        tex3= tex2.length
-                        tex2= tex2.substr(11,tex3)
-                        tex3= tex2.length-2
-                        tex2= tex2.substr(0,tex3)
-                        tex2= tex2.replace(strquotes, String.fromCharCode(34))
-                    var prue2 = JSON.parse(tex2);
-                    busq2= prue2.tel_cel.length;
-                    tel = prue2.tel_cel.substr(0,2) + '*****' + prue2.tel_cel.substr(7,10)
-                    ema= "Teléfono celular registrado: </br>" + tel
-                    document.getElementById('cont3').innerHTML=ema;
-                    $("#run3").show();
-                });
-                });
+<!--        $(function(){-->
+<!--        $('input[type=radio][name=OTP2][value=SMS]').change(function() {-->
+<!--            var tex2-->
+<!--            var tex3-->
+<!--            var busq-->
+<!--            var busq2-->
+<!--            var ema-->
+<!--            var strquotes = /(')/g-->
+<!--                tex2= "{{ data|safe }}"-->
+<!--                tex3= tex2.length-->
+<!--                tex2= tex2.substr(11,tex3)-->
+<!--                tex3= tex2.length-2-->
+<!--                tex2= tex2.substr(0,tex3)-->
+<!--                tex2= tex2.replace(strquotes, String.fromCharCode(34))-->
+<!--            var prue2 = JSON.parse(tex2);-->
+<!--            busq2= prue2.tel_cel.length;-->
+<!--            tel = prue2.tel_cel.substr(0,2) + '*****' + prue2.tel_cel.substr(7,10)-->
+<!--            ema= "Teléfono celular registrado: </br>" + tel-->
+<!--            document.getElementById('cont2').innerHTML=ema;-->
+<!--            $("#run2").show();-->
+<!--        });-->
+<!--        });-->
+<!--        $(function(){-->
+<!--                $('input[type=radio][name=OTP3][value=SMS]').change(function() {-->
+<!--                    var tex2-->
+<!--                    var tex3-->
+<!--                    var busq-->
+<!--                    var busq2-->
+<!--                    var ema-->
+<!--                    var strquotes = /(')/g-->
+<!--                        tex2= "{{ data|safe }}"-->
+<!--                        tex3= tex2.length-->
+<!--                        tex2= tex2.substr(11,tex3)-->
+<!--                        tex3= tex2.length-2-->
+<!--                        tex2= tex2.substr(0,tex3)-->
+<!--                        tex2= tex2.replace(strquotes, String.fromCharCode(34))-->
+<!--                    var prue2 = JSON.parse(tex2);-->
+<!--                    busq2= prue2.tel_cel.length;-->
+<!--                    tel = prue2.tel_cel.substr(0,2) + '*****' + prue2.tel_cel.substr(7,10)-->
+<!--                    ema= "Teléfono celular registrado: </br>" + tel-->
+<!--                    document.getElementById('cont3').innerHTML=ema;-->
+<!--                    $("#run3").show();-->
+<!--                });-->
+<!--                });-->
 
 
 <!--        //-->
