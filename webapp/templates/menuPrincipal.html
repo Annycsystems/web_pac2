@@ -17,10 +17,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
     body {
-        background-image: url("web_pac2/static/css/imgs/logo_nat.png");
+        background-image: url("web_pac2/static/css/imgs/logo_nvo_ngo_com.png");
         background-repeat: no-repeat;
-        background-size: 25%;
-        background-position: 1% 1%;
+            background-size: 20%;
+            background-position:0% -5%;
     }
     </style>
     <script>
@@ -429,23 +429,6 @@
         function mayus(e) {
             e.value = e.value.toUpperCase();
         }
-
-        const MAXIMO_TAMANIO_BYTES = 2000000; // 1MB = 1 millón de bytes
-
-        const $miInput = document.getElementById("INEUp");
-
-        $miInput.addEventListener("change", function () {
-            if (this.files.length <= 0) return;
-
-            const archivo = this.files[0];
-            if (archivo.size > MAXIMO_TAMANIO_BYTES) {
-                const tamanioEnMb = MAXIMO_TAMANIO_BYTES / 1000000;
-                alert(`El tamaño máximo es ${tamanioEnMb} MB`);
-                $miInput.value = "";
-            } else {
-<!--                // Validación pasada. Envía el formulario o haz lo que tengas que hacer-->
-            }
-        });
 </script>
 
 
@@ -461,10 +444,14 @@
               Centro de Atención Natura (CAN)</br>
                 55 5001 7801
             </div>
+            <div class="card card-body" style="width: 300px;">
+                <p>Preguntas frecuentes<a href="https://raw.githubusercontent.com/Annycsystems/Natura/main/Preguntas%20Frecuentes.pdf" target="_blank"> aquí</a></p>
+            </div>
           </div>
         </div>
         <div>
-            <p style="font-size: 2vw" class="bold">Bienvenido(a) consultor(a) </p>
+            <p style="font-size: 2vw" class="bold"> </p><br>
+            <p style="font-size: 2vw" class="bold"> </p><br>
             <p style="font-size: 1.5vw" class="bold-small"> Selecciona el trámite que deseas realizar </p>
             <table class="cen">
                 <tr>
@@ -500,8 +487,8 @@
             <div class="modal fade" id="myModal" role="dialog" data-backdrop="static" data-keyboard="false">
                 <div class="modal-dialog">
                 <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title w-100 text-center">Atención</h3>
+                <div class="modal-header" style="background-color:#eb6619;">
+                    <h3 class="modal-title w-100 text-center" style="color:#ffffff;">Atención</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -509,13 +496,14 @@
                 <div class="modal-body">
                       <p align="center">Para modificar tus datos de contacto, ingresa a</br>
                             Mi negocio en la seccion "Mi perfil".</p>
-						<label>Más información </label><a href="https://www.youtube.com/embed/eCopZQge-Ow" target="_blank"> click aqui</a>	
+						<label>Conoce más </label><a href="https://www.youtube.com/embed/eCopZQge-Ow" target="_blank"> aqui</a>
                 </div>
-                <div class="modal-footer">
-                  
-                  <a href="https://minegocio.natura.com.mx/ingreso/mx?return_url=" target="_blank" onClick="window.open(this.href); return false;" data-dismiss="modal">Continuar</a>
-				  <button type="button" class="btn btn-secondary" data-dismiss="modal">Regresar</button>
+                <div class="modal-footer" style="align-items: baseline;">
+
+                  <a href="https://minegocio.natura.com.mx/ingreso/mx?return_url=" target="_blank" onClick="window.open(this.href); return false;" data-dismiss="modal">Ir a Mi negócio</a>
+				  <button type="button" class="enviar" data-dismiss="modal">Regresar</button>
                 </div>
+
                 </div>
 
                 </div>
@@ -525,13 +513,16 @@
     </div> <!--Botones para cambio de datos-->
 
     <div class="mx-auto" id="botonesEstatus" style="width: 60%;">
-        <form>
-
-        </form>
+        <span class="bold-smaller"> </span><br>
         <span class="bold-smaller">Ingresa tu número de folio </span><br>
-        <input type="text" class="campo-centrado cen" placeholder="Folio"><br>
-        <button class="aceptar" onclick="mostrarGrid()">Aceptar</button><br>
-
+        <form style="display: flex; flex-direction: column; align-items: center;" action="status" method="POST">
+            <input id="folio" name="folio" type="text" class="campo-centrado cen" placeholder="Folio"><br>
+            <button class="enviar">Aceptar</button><br>
+            {% csrf_token %}
+        </form>
+        <div>
+                {{ trac }}
+        </div>
     </div>  <!--Botones para consulta de tickets-->
 
     <div class="container-fluid" id="botonesDomicilio" style="width: 60%; margin-top: 15px;">

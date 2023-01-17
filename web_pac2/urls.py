@@ -4,7 +4,7 @@ from django.urls import path, include
 from web_pac2 import settings
 from webapp import views
 from webapp.views import bienvenido, uploadFile, search_pers, rec_pass, new_pers, bienvenidos, main, \
-    uploadTickdirect, main_menu, send_email, Tick_val
+    uploadTickdirect, main_menu, send_email, Tick_val, cons_sta
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django_postalcodes_mexico import urls as django_postalcodes_mexico_urls
@@ -20,6 +20,7 @@ urlpatterns = [
     path('main', main_menu, name='menu_ini'),
     path('validate', uploadTickdirect, name='cam_dom'),
     path('Inicio', Tick_val, name='cam_dom'),
+    path('status', cons_sta, name='conuslta_trac'),
     path('api/', include(django_postalcodes_mexico_urls)),
 ]
 

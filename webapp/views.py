@@ -16,7 +16,6 @@ from datos.models import tipo_solicitud, pers_gen, users_sys, primer_registro, u
 from django.db.models import Max
 
 
-
 def bienvenido(request):
     if request.method == "POST":
         forma_nuevo_usuario = NewpersonForm(request.POST)
@@ -32,8 +31,11 @@ def bienvenido(request):
 def rec_pass(request):
     return render(request, 'recuperar_Contrasenia.html')
 
+
 def main(request):
     return render(request, 'main.html')
+
+
 # def main(request):
 #     return render(request, 'menuPrincipal.html')
 # def main(request):
@@ -44,7 +46,6 @@ def bienvenidos(request):
 
 
 def new_pers(request):
-
     if request.method == "POST":
         forma_nuevo_usuario = NewpersonForm(request.POST)
         if forma_nuevo_usuario.is_valid():
@@ -53,6 +54,7 @@ def new_pers(request):
     else:
         forma_nuevo_usuario = NewpersonForm()
     return render(request, 'Sign_in.html', {'forma_nuevo_usuario': forma_nuevo_usuario})
+
 
 def main_menu(request):
     return render(request, 'menuPrincipal.html')
@@ -66,7 +68,7 @@ def search_pers(request):
         persons = pers_gen.objects.filter(Codigo_CN=search)
         acce = pers_gen.objects.filter(Codigo_CN=search).values("first_Acces")
         vali = str(acce[0]["first_Acces"])
-        data = pers_gen.objects.filter(Codigo_CN=search).values("email","tel_cel")
+        data = pers_gen.objects.filter(Codigo_CN=search).values("email", "tel_cel")
         data2 = pers_gen.objects.filter(Codigo_CN=search).values("Codigo_CN")
         if vali == '1':
             return render(request, 'car_bievenido.html', {'persons': persons, 'data': data, 'data2': data2})
@@ -75,9 +77,10 @@ def search_pers(request):
     messages.success(request, 'Código ingresado no válido o incorrecto,   favor de verificarlo.')
     return render(request, 'bienvenido.html')
 
-def send_email(mail,nombre,temp,adi,folio):
+
+def send_email(mail, nombre, temp, adi, folio):
     try:
-        context = {'nombre': nombre,'solicitud':adi,'folio':folio}
+        context = {'nombre': nombre, 'solicitud': adi, 'folio': folio}
         template = get_template(temp)
         content = template.render(context)
 
@@ -95,6 +98,7 @@ def send_email(mail,nombre,temp,adi,folio):
     except Exception as e:
         print(e.__str__())
         return JsonResponse({'status': False, 'mensaje': 'Ocurrio un error al momento de enviar el correo'})
+
 
 def uploadFile(request):
     if request.method == "POST":
@@ -137,17 +141,18 @@ def uploadFile(request):
             corr = str(acce[0]["email"])
             nom = str(acce2[0]["Nombre_CN"])
             temp = "correo_datos_gen.html"
-            adi="Datos generales"
+            adi = "Datos generales"
             folio = ''
-            send_email(corr,nom,temp,adi,folio)
+            send_email(corr, nom, temp, adi, folio)
             data = pers_gen.objects.filter(Codigo_CN=Cod).values("email", "tel_cel")
             data2 = pers_gen.objects.filter(Codigo_CN=Cod).values("Codigo_CN")
-            return render(request, "menuPrincipal.html", {'data': data,'data2': data2})
+            return render(request, "menuPrincipal.html", {'data': data, 'data2': data2})
         if str(str(resp["estatus"])) == "ERROR":
             messages.error(request, 'CURP no valido o incorrecto, favor de verificarlo.')
             print("ok");
             return render(request, "First_access.html")
     return render(request, "First_access.html")
+
 
 def uploadTickdirect(request):
     if request.method == "POST":
@@ -183,20 +188,20 @@ def uploadTickdirect(request):
         # Doc1_sol.name = id_sol + "_" + Doc1_sol.name
 
         document = {
-            "CodigoCN_pers" : CodigoCN_pers,
-            "Tipo_sol" : Tipo_sol,
-            "Detalle_sol":Detalle_sol,
-            "cp_sol":cp_sol,
-            "estado_sol":estado_sol,
-            "alc_mun_sol":alc_mun_sol,
-            "colonia_sol":colonia_sol,
-            "calle_sol":calle_sol,
-            "NumInt_sol":NumInt_sol,
-            "NumExt_sol":NumExt_sol,
-            "Ref_sol":Ref_sol,
-            "Fecha_sol":Fecha_sol,
-            "Status_sol":Status_sol,
-            "fecha_ult_mod":fecha_ult_mod,
+            "CodigoCN_pers": CodigoCN_pers,
+            "Tipo_sol": Tipo_sol,
+            "Detalle_sol": Detalle_sol,
+            "cp_sol": cp_sol,
+            "estado_sol": estado_sol,
+            "alc_mun_sol": alc_mun_sol,
+            "colonia_sol": colonia_sol,
+            "calle_sol": calle_sol,
+            "NumInt_sol": NumInt_sol,
+            "NumExt_sol": NumExt_sol,
+            "Ref_sol": Ref_sol,
+            "Fecha_sol": Fecha_sol,
+            "Status_sol": Status_sol,
+            "fecha_ult_mod": fecha_ult_mod,
             # "Doc1_sol":Doc1_sol,
         }
         if (OTP_via == 'mail'):
@@ -209,18 +214,18 @@ def uploadTickdirect(request):
             folio = tk_via
             send_email(corr, nom, temp, adi, folio)
 
-        # document.save()
+            # document.save()
             return render(request, "tkn_template.html", {"docs": document})
     return render(request, "menuPrincipal.html")
 
-def Tick_val(request):
 
+def Tick_val(request):
     if request.method == "POST":
         fol = usr_sol_dom.objects.aggregate(Max('id'))
         val_fol = fol["id__max"]
-        if val_fol== None:
-            val_fol=0
-        val_fol = val_fol+1
+        if val_fol == None:
+            val_fol = 0
+        val_fol = val_fol + 1
         now = datetime.now()
         nowy = now.year
         if len(str(val_fol)) == 1:
@@ -276,16 +281,17 @@ def Tick_val(request):
         data = pers_gen.objects.filter(Codigo_CN=CodigoCN_pers).values("email", "tel_cel")
         data2 = pers_gen.objects.filter(Codigo_CN=CodigoCN_pers).values("Codigo_CN")
         response = redirect('/main')
-        return render(request, "menuPrincipal.html", {'data': data,'data2': data2})
+        return render(request, "menuPrincipal.html", {'data': data, 'data2': data2})
     return render(request, "menuPrincipal.html")
+
 
 def uploadTickRFC(request):
     if request.method == "POST":
         fol = usr_sol_rfc.objects.aggregate(Max('id'))
         val_fol = fol["id__max"]
-        if val_fol== None:
-            val_fol=0
-        val_fol = val_fol+1
+        if val_fol == None:
+            val_fol = 0
+        val_fol = val_fol + 1
         now = datetime.now()
         nowy = now.year
         if len(str(val_fol)) == 1:
@@ -331,4 +337,12 @@ def uploadTickRFC(request):
         return response
     return render(request, "menuPrincipal.html")
 
-# def cons_sta(request):
+
+def cons_sta(request):
+    if request.method == "POST":
+        id_sol = request.POST["folio"]
+        trac = track_sol.objects.filter(id_sol=id_sol).values('id_sol', 'Status_sol', 'fecha_ult_mod',
+                                                              'usuario_mod_sol')
+        return {'trac': trac}
+    messages.success(request, 'Folio ingresado no valido, favor de verificarlo.')
+    return render(request, "menuPrincipal.html")

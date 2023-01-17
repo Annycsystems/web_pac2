@@ -61,6 +61,17 @@
           right: 10;
           margin: 7px 0px;
         }
+      .soporte{
+        display: block;
+        width: 5vw;
+        height: 5vw;
+        border-radius: 50%;
+        background:rgb(235,102,25);
+        margin-top: 25px;
+        position: absolute;
+        right: 25px;
+        z-index:3;
+      }
     </style>
     <script>
         $(document).ready(function(){
@@ -147,10 +158,25 @@
     </script>
 </head>
 <body>
+    <button  class="soporte" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+        <img style="max-width: 80%; max-height: 80%;" src="web_pac2/static/css/imgs/cont_bco.png">
+    </button>
+    <div style="min-height: 10px; position: absolute; right: 25px; margin-top: 7%;">
+            <label class="texto">¿Necesitas Ayuda?</label>
+          <div class="collapse collapse-horizontal" id="collapseWidthExample">
+            <div class="card card-body" style="width: 300px;">
+              Centro de Atención Natura (CAN)</br>
+                55 5001 7801
+            </div>
+              <div class="card card-body" style="width: 300px;">
+                  <p>Preguntas frecuentes<a href="https://raw.githubusercontent.com/Annycsystems/Natura/main/Preguntas%20Frecuentes.pdf" target="_blank"> aquí</a></p>
+            </div>
+          </div>
+    </div>
     <div>
         <div class="row">
             <div class="col" style="background :#eb6619; margin: auto; color: #ffffff; align-items: flex-start;">
-               <img style="max-width: 25%; max-height: 25%; position: absolute; top: 5px; left: 25px;" src="web_pac2/static/css/imgs/logo_nat.png" >
+               <img style="max-width: 30%; max-height: 30%; position: absolute; top: -15px; left: 0px;" src="web_pac2/static/css/imgs/logo_nvo_ngo_com.png" >
             </div>
         </div>
         <div class="row">

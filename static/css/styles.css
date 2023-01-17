@@ -1,3 +1,12 @@
+@font-face {
+    font-family: "Helvetica now";
+    src: url("HelveticaNowText-Medium.woff");
+}
+
+body {
+    font-family: "Helvetica now", serif;
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -54,7 +63,7 @@
     text-align: center;
 }
 .content_slider h2{
-    font-family: 'arial';
+    font-family: "Helvetica now", serif;
     font-size: 30pt;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -63,7 +72,7 @@
 }
 .content_slider p {
     font-size: 15pt;
-    font-family: 'arial';
+    font-family: "Helvetica now", serif;
     color: black;
     margin-bottom: 20px;
     z-index=2;
@@ -84,7 +93,7 @@
 .btnSlider{
     color: #FFF;
     font-size: 15pt;
-    font-family: 'arial';
+    font-family: "Helvetica now", serif;
     letter-spacing: 1px;
     padding: 10px 50px;
     border: 1px solid #CCC;

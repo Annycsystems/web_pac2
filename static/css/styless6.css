@@ -1,4 +1,11 @@
-@import url(https://fonts.googleapis.com/css?family=Montserrat);
+@font-face {
+    font-family: "Helvetica now";
+    src: url("HelveticaNowText-Medium.woff");
+}
+
+body {
+    font-family: "Helvetica now", serif;
+}
 
 /*basic reset*/
 * {margin: 0; padding: 0;}
@@ -13,7 +20,7 @@ html {
 }
 
 body {
-	font-family: montserrat, arial, verdana;
+	font-family: "Helvetica now", serif;
 }
 /*form styles*/
 #msform {
@@ -47,7 +54,7 @@ body {
 	margin-bottom: 10px;
 	width: 100%;
 	box-sizing: border-box;
-	font-family: montserrat;
+	font-family: "Helvetica now", serif;
 	color: #2C3E50;
 	font-size: 13px;
 }
@@ -173,7 +180,7 @@ body {
     border-color: rgb(214,214,214);
     border-style: solid;
     background: #f0ecec;
-    font-family: TimesNewRoman;
+    font-family: "Helvetica now", serif;
     font-weight: bold;
     font-size: 18px;
     color: grey;
@@ -232,7 +239,7 @@ body {
 .dat_cont{
     color: #FFF;
     font-size: 15pt;
-    font-family: 'arial';
+    font-family: "Helvetica now", serif;
     letter-spacing: 1px;
     padding: 10px 50px;
     border: 1px solid #CCC;
@@ -571,11 +578,13 @@ button{
           font-size: 13px;
         }
 
-              .social{
-            right: 0%;
+        .social{
+            position: relative;
+            left: 40%;
             display: flex;
             flex-flow: row;
-       }
+            width: 30%;
+        }
 
         .socimg{
             widt: 3%;
@@ -594,32 +603,7 @@ button{
           height: 60px;
           color: white;
         }
-        .hijo {
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          width: 100%;
-          height: 30%;
-          margin: auto;
-        }
-
-        .hijosoc {
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 42%;
-          right: 10;
-          margin: 7px 0px;
-        }
         .form-check-input:checked {
             background-color: #eb6619;
             border-color: pink;
         }
-<!--        .form-switch .form-check-input {-->
-<!--          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='red'/%3e%3c/svg%3e");-->
-<!--        }-->
-<!--        .form-switch .form-check-input:focus {-->
-<!--          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='pink'/%3e%3c/svg%3e");-->
-<!--        }-->
