@@ -19,8 +19,126 @@
     body {
         background-image: url("web_pac2/static/css/imgs/logo_nvo_ngo_com.png");
         background-repeat: no-repeat;
-            background-size: 20%;
-            background-position:0% -5%;
+        background-size: 20%;
+        background-position:0% -1%;
+    }
+
+    .etiNom{
+        display: inline-block;
+        width:10px;
+    }
+
+    @media screen and (max-width: 420px) {
+
+        body {
+            background-image: url("web_pac2/static/css/imgs/logo_nvo_ngo_com.png");
+            background-repeat: no-repeat;
+            background-size: 50%;
+            background-position: 3% 1%;
+        }
+
+        .cen{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .texto{
+          margin-top: 25%;
+        }
+
+        .priv{
+            font-size: 15px;
+            margin-top: -10px
+        }
+
+        .privv{
+            margin-top: -15px;
+        }
+
+        .redes{
+            width: 30%;
+            margin-top: 30px;
+        }
+
+        .soporte{
+            display: block;
+            width: 15vw;
+            height: 15vw;
+            border-radius: 50%;
+            background:rgb(235,102,25);
+            margin-top: 0px;
+            position: absolute;
+            right: 25px;
+            z-index:3;
+        }
+
+        .bold-small{
+            margin-top: 8%;
+        }
+
+        .form{
+            width: 100%;
+        }
+
+        .campocp{
+            width: 135px;
+        }
+
+        .camponum{
+            width: 135px;
+        }
+
+        .campo{
+            width: 135px;
+        }
+
+        .enviar{
+            width: 70px;
+        }
+
+        .default{
+            margin-top: -10px;
+        }
+
+    }
+
+    @media screen and (min-width: 800px) {
+
+        .alin{
+            text-align: right;
+        }
+
+        .etiNom{
+            width: 50px;
+        }
+
+        .redes{
+            width: 15%;
+            margin-top: 5px;
+        }
+
+        .soporte{
+            display: block;
+            width: 5vw;
+            height: 5vw;
+            border-radius: 50%;
+            background:rgb(235,102,25);
+            margin-top: 25px;
+            position: absolute;
+            right: 25px;
+            z-index:3;
+        }
+
+        .bold-small{
+            margin-top: 2%;
+            margin-bottom: 10px;
+        }
+
+        .form{
+            width: 60%;
+        }
+
     }
     </style>
     <script>
@@ -452,12 +570,12 @@
         <div>
             <p style="font-size: 2vw" class="bold"> </p><br>
             <p style="font-size: 2vw" class="bold"> </p><br>
-            <p style="font-size: 1.5vw" class="bold-small"> Selecciona el trámite que deseas realizar </p>
+            <p class="bold-small"> Selecciona el trámite que deseas realizar </p>
             <table class="cen">
                 <tr>
                     <td>
                         <div class="dropdown">
-                          <button style="padding: 0 1em 0 1em;" class="select dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="activarDatos()">
+                          <button style="width:97%; margin-right: 10px; height: 50px;" class="select dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="activarDatos()">
                             Actualización de datos
                           </button>
                           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -468,7 +586,7 @@
                         </div>
                     </td>
                     <td>
-                        <button type="button" class="select" onclick="activarEstatus()">Consulta estatus de solicitud</button>
+                        <button type="button" class="select" style="width:90%; height: 50px;" onclick="activarEstatus()">Consulta estatus de solicitud</button>
                     </td>
                 </tr>
             </table>
@@ -525,8 +643,8 @@
         </div>
     </div>  <!--Botones para consulta de tickets-->
 
-    <div class="container-fluid" id="botonesDomicilio" style="width: 60%; margin-top: 15px;">
-        <div class="row">
+    <div class="form container-fluid" id="botonesDomicilio" style="margin-top: 15px;">
+        <div style="width: 100%;">
             <h4 class="cen" style="font-size:15;"><b>Domicilio(s)</b></h4>
 				<div style="text-align: center;">
 					<label class="bold-small-centrado"style="margin-bottom: 10px;">Selecciona la(s) dirección(es) que quieres modificar:</label><br>
@@ -547,7 +665,7 @@
                         </tr>
                     </table>
 				</div>
-                <form id="formdomi" class="default" onkeydown="return event.key != 'Enter';" action="validate" method="post" enctype="multipart/form-data" style="display:none;">{% csrf_token %}
+                <form id="formdomi" class="default" onkeydown="return event.key != 'Enter';" action="validate" method="post" enctype="multipart/form-data" style="display:none; width: 100%">{% csrf_token %}
                     <INPUT id="codi" name="codi" style="display:none;">
                     <INPUT id="direct" name="direct" style="display:none;">
                     <INPUT id="tk" name="tk" style="display:none;">
@@ -613,7 +731,7 @@
                     <INPUT id="codi2" name="codi2" style="display:none;">
                     <INPUT id="direct2" name="direct" style="display:none;">
                     <INPUT id="tk2" name="tk2" style="display:none;">
-                    <label class="EtiNom" >Código postal </label>
+                    <label class="EtiNom" style=" width: 5px;">Código postal </label>
                     <input id="cp2" name="cp2" type="text" class="campocp" placeholder="55555" required onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" maxlength="5">
                     <button class="enviar" onclick="Bus_CP2()">Consultar</button><br>
                     <label class="EtiNum">Estado </label>
@@ -682,10 +800,10 @@
             <table>
                 <tr>
                     <div style="display:inline-block; position: absolute; text-align: center;">
-                        <h4 style="color: #ffffff;margin-top: 5px;"><b>Consulta nuestro Aviso de Privacidad.</b></h4>
+                        <h4 style="color: #ffffff;"class="privv"><b class="priv">Consulta nuestro Aviso de Privacidad.</b></h4>
                     </div>
-                    <td style="text-align: right;">
-                        <div style="width:15%; display: inline-block; text-align: right; margin-top: 5px; vertical-align: text-bottom;">
+                    <td class="alin">
+                        <div class="redes" style="display: inline-block; text-align: right; vertical-align: text-bottom;">
                             <a href="https://mx.linkedin.com/company/natura-mexico" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/linkedin.png" alt="inkedin"></a>
                             <a href="https://www.instagram.com/natura.mexico/?hl=es" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/instagram.png" alt="instagram"></a>
                             <a href="https://twitter.com/natura_mexico" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/twitter.png" alt="twitter"></a>

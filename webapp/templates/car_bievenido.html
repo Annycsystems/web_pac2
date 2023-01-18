@@ -13,6 +13,84 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <style>
+
+        @media screen and (max-width: 420px) {
+            .texto{
+            margin-top: 43%;
+            }
+
+            .soporte{
+                display: block;
+                width: 15vw;
+                height: 15vw;
+                border-radius: 50%;
+                background:rgb(235,102,25);
+                margin-top: 25px;
+                position: absolute;
+                right: 25px;
+                z-index:3;
+            }
+
+            .carrusel{
+                margin-top: 80px;
+            }
+
+            .logo{
+                max-width: 50%;
+                max-height: 50%;
+                position: absolute;
+                top: 0px;
+                left: 10px;
+            }
+
+            .redes{
+              width: 30%;
+              margin-top: 30px;
+            }
+
+            .priv{
+                font-size: 15px;
+                margin-top: -15px
+            }
+
+            .privv{
+                margin-top: -15px;
+            }
+
+        }
+
+        @media screen and (min-width: 800px) {
+
+            .soporte{
+                display: block;
+                width: 5vw;
+                height: 5vw;
+                border-radius: 50%;
+                background:rgb(235,102,25);
+                margin-top: 25px;
+                position: absolute;
+                right: 25px;
+                z-index:3;
+            }
+
+            .logo{
+                max-width: 25%;
+                max-height: 25%;
+                position: absolute;
+                top: -30px;
+                left: 15px;
+            }
+
+            .alin{
+            text-align: right;
+          }
+
+          .redes{
+            width: 15%;
+            margin-top: 5px;
+          }
+        }
+
           .cen{
               display: flex;
               justify-content: center;
@@ -61,17 +139,6 @@
           right: 10;
           margin: 7px 0px;
         }
-      .soporte{
-        display: block;
-        width: 5vw;
-        height: 5vw;
-        border-radius: 50%;
-        background:rgb(235,102,25);
-        margin-top: 25px;
-        position: absolute;
-        right: 25px;
-        z-index:3;
-      }
     </style>
     <script>
         $(document).ready(function(){
@@ -176,12 +243,12 @@
     <div>
         <div class="row">
             <div class="col" style="background :#eb6619; margin: auto; color: #ffffff; align-items: flex-start;">
-               <img style="max-width: 30%; max-height: 30%; position: absolute; top: -15px; left: 0px;" src="web_pac2/static/css/imgs/logo_nvo_ngo_com.png" >
+               <img class="logo" src="web_pac2/static/css/imgs/logo_nvo_ngo_com.png" >
             </div>
         </div>
         <div class="row">
             <div class="col cen">
-                <section id="container-slider">
+                <section id="container-slider" class="carrusel" >
                 <a id="pv" href="javascript: fntExecuteSlide('prev');" class="arrowPrev" style="display:none;"><i class="fas fa-chevron-circle-left"></i></a>
                 <a id="nt" href="javascript: fntExecuteSlide('next');" class="arrowNext"><i class="fas fa-chevron-circle-right"></i></a>
                 <ul class="listslider">
@@ -196,7 +263,7 @@
                 <li style="opacity: 1;">
                 <div class="content_slider" >
                     <div>
-                        <h3 ><b>Bienvenido(a) Consultor(a) de Belleza Natura</b></h3><br>
+                        <h3><b>Bienvenido(a) Consultor(a) de Belleza Natura</b></h3><br>
                         <img style="max-width: 20%; max-height: 20%;" src="web_pac2/static/css/imgs/house.png"><br>
                     <p style="font-size: 25px;">Creamos este espacio para ti. <br>
                        Aquí podrás actualizar tus datos de manera ágil y sencilla.<br>¡Conoce los beneficios!</p>
@@ -255,10 +322,10 @@
             <table>
                 <tr>
                     <div style="display:inline-block; position: absolute; text-align: center;">
-                        <h4 style="color: #ffffff;margin-top: 5px;"><b>Consulta nuestro Aviso de Privacidad.</b></h4>
+                        <h4 style="color: #ffffff;" class="priv"><b class="privv">Consulta nuestro Aviso de Privacidad.</b></h4>
                     </div>
-                    <td style="text-align: right;">
-                        <div style="width:15%; display: inline-block; text-align: right; margin-top: 5px; vertical-align: text-bottom;">
+                    <td class="alin">
+                        <div class="redes" style="display: inline-block; text-align: right; vertical-align: text-bottom;">
                             <a href="https://mx.linkedin.com/company/natura-mexico" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/linkedin.png" alt="inkedin"></a>
                             <a href="https://www.instagram.com/natura.mexico/?hl=es" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/instagram.png" alt="instagram"></a>
                             <a href="https://twitter.com/natura_mexico" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/twitter.png" alt="twitter"></a>

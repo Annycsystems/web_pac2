@@ -34,14 +34,14 @@
           cursor: pointer;
         }
 
-    @media screen and (min-width: 300px) {
+    @media screen and (max-width: 420px) {
         body {
             background-image: url("web_pac2/static/css/imgs/logo_nvo_ngo_com.png");
             background-repeat: no-repeat;
             background-size: 60%;
             background-position:0% 15%;
         }
-        manos{
+        .manos{
         display: none;
         }
           .cen{
@@ -64,6 +64,10 @@
             float: right;
         }
 
+        .texto{
+          margin-top: 43%;
+        }
+
       footer {
           background-color: black;
           position: absolute;
@@ -73,6 +77,34 @@
           color: white;
         }
 
+      .bien{
+        margin-top: 70%;
+      }
+      .soporte{
+        display: block;
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+        background:rgb(235,102,25);
+        margin-top: 25px;
+        position: absolute;
+        right: 25px;
+        z-index:3;
+      }
+
+      .priv{
+        font-size: 15px;
+        margin-top: -10px
+      }
+
+      .privv{
+        margin-top: -15px;
+      }
+
+      .redes{
+        width: 30%;
+        margin-top: 30px;
+      }
   }
 
  @media screen and (min-width: 800px) {
@@ -93,13 +125,34 @@
              margin: 5% auto 1% ;
           }
 
+          .alin{
+            text-align: right;
+          }
+
+          .redes{
+            width: 15%;
+            margin-top: 5px;
+          }
+
+          .soporte{
+            display: block;
+            width: 5vw;
+            height: 5vw;
+            border-radius: 50%;
+            background:rgb(235,102,25);
+            margin-top: 25px;
+            position: absolute;
+            right: 25px;
+            z-index:3;
+          }
+
           .cen{
           display: flex;
           justify-content: center;
           align-items: center;
           }
 
-                      .social{
+          .social{
             right: 0%;
             display: flex;
             flex-flow: row;
@@ -151,17 +204,7 @@
           overflow: hidden;
           width: 33%
         }
-     .soporte{
-        display: block;
-        width: 5vw;
-        height: 5vw;
-        border-radius: 50%;
-        background:rgb(235,102,25);
-        margin-top: 25px;
-        position: absolute;
-        right: 25px;
-        z-index:3;
-      }
+
 
     </style>
 </head>
@@ -199,7 +242,7 @@
             </form>
         </div>
         <div class="manos col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 col-xxl-5" style="background-color:#9fa0a7;">
-            <img src="web_pac2/static/css/imgs/manos_2.png" width="90%">
+            <img src="web_pac2/static/css/imgs/manos_2.png" width="95%">
         </div>
     </div>
 <!--</div>-->
@@ -208,10 +251,10 @@
             <table>
                 <tr>
                     <div style="display:inline-block; position: absolute; text-align: center;">
-                        <h4 style="color: #ffffff;margin-top: 5px;"><b>Consulta nuestro Aviso de Privacidad.</b></h4>
+                        <h4 style="color: #ffffff;"class="privv"><b class="priv">Consulta nuestro Aviso de Privacidad.</b></h4>
                     </div>
-                    <td style="text-align: right;">
-                        <div style="width:15%; display: inline-block; text-align: right; margin-top: 5px; vertical-align: text-bottom;">
+                    <td class="alin">
+                        <div class="redes" style="display: inline-block; text-align: right; vertical-align: text-bottom;">
                             <a href="https://mx.linkedin.com/company/natura-mexico" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/linkedin.png" alt="inkedin"></a>
                             <a href="https://www.instagram.com/natura.mexico/?hl=es" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/instagram.png" alt="instagram"></a>
                             <a href="https://twitter.com/natura_mexico" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/twitter.png" alt="twitter"></a>

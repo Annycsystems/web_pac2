@@ -12,23 +12,108 @@
 
 
     <style>
+
+      @media screen and (max-width: 420px) {
+
+        body {
+            background-image: url("web_pac2/static/css/imgs/logo_nvo_ngo_com.png");
+            background-repeat: no-repeat;
+            background-size: 50%;
+            background-position: 1% 1%;
+        }
+
+        .margen{
+          margin-top: 18%;
+          padding-left: 0px;
+          padding-right: 0px;
+        }
+
+        .redes{
+          width: 30%;
+          margin-top: 30px;
+        }
+
+        .texto{
+          margin-top: 43%;
+        }
+
+        .priv{
+          font-size: 15px;
+          margin-top: -15px
+        }
+
+        .privv{
+          margin-top: -15px;
+        }
+
+        .soporte{
+          display: block;
+          width: 15vw;
+          height: 15vw;
+          border-radius: 50%;
+          background:rgb(235,102,25);
+          margin-top: 25px;
+          position: absolute;
+          right: 25px;
+          z-index:3;
+        }
+
+        .form{
+          margin-right: 0px;
+          padding-left: 50px;
+          padding-right: 50px;
+        }
+      }
+
+      @media screen and (min-width: 800px) {
+
         body {
             background-image: url("web_pac2/static/css/imgs/logo_nvo_ngo_com.png");
             background-repeat: no-repeat;
             background-size: 25%;
             background-position: 1% -7%;
         }
-      .soporte{
-        display: block;
-        width: 5vw;
-        height: 5vw;
-        border-radius: 50%;
-        background:rgb(235,102,25);
-        margin-top: 25px;
-        position: absolute;
-        right: 25px;
-      }
 
+        .margen{
+          width: 100%;
+          margin-top: 4%;
+          margin-left: 0px;
+          margin-right: 0px;
+          padding-left: 0px;
+          padding-right: 0px;
+        }
+
+        .form{
+          margin-top: 5%;
+        }
+
+        .redes{
+          width: 15%;
+          margin-top: 5px;
+        }
+
+        .cen{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .alin{
+          text-align: right;
+        }
+
+        .soporte{
+          display: block;
+          width: 5vw;
+          height: 5vw;
+          border-radius: 50%;
+          background:rgb(235,102,25);
+          margin-top: 25px;
+          position: absolute;
+          right: 25px;
+          z-index:3;
+        }
+      }
 
           .cen{
               display: flex;
@@ -84,11 +169,13 @@
        }
 
       .socimg{
-        max-width: 55%;
-        max-height: 55%;
-<!--        float: right;-->
-        align-items: end;
-      }
+
+            height: 3%;
+            max-width: 15%;
+            max-height: 15%;
+            margin-right: 5px;
+            float: right;
+        }
 
       footer {
           background-color: black;
@@ -142,17 +229,14 @@
           </div>
     </div>
     <div class="row">
-        <div class="col-xs-12 col-sm-3 col-md-3">
-
-        </div>
-        <div class="col-xs-12 col-sm-3 col-md-9s" style="width: 50%;">
+        <div class="margen">
              {% for msg in messages %}
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                   <strong>Atención!</strong> {{ msg }}
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             {% endfor %}
-        <form id="msform" action="Menu" method="post" enctype="multipart/form-data" style="margin: 39px 172px; padding: 10px 50px 20px; border-radius: 15px;">
+        <form class="form" id="msform" action="Menu" method="post" enctype="multipart/form-data" style="border-radius: 15px;">
           <h3>Información general</h3>
 <!--          <h3 class="fs-subtitle">Adjuntar archivos.</h3>-->
           <INPUT id="cod" name="cod" style="display:none;">
@@ -202,25 +286,26 @@
 
 
             </div>
-        <footer>
-            <div class="container text-center" style="display: table; height:200px;">
-              <div class="row">
-                <div class="col align-self-start">
-                    <br>
-                </div>
-                <div class="hijo col align-self-center">
-                  <h5 class="cen" style="color: #ffffff;" align="center"><b>Consulta nuestro Aviso de Privacidad.</b></h5>
-                </div>
-                <div class="hijosoc col align-self-end bottom-0 end-0">
-                    <a style="width: 30%;" href="https://www.facebook.com/natura.mexico" target="_blank"><img class="socimg" src="web_pac2/static/css/imgs/facebook-logo.png" alt="facebook"></a>
-                    <a style="width: 30%;" href="https://www.youtube.com/@naturamx" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/youtube.png" alt="youtube"></a>
-                    <a style="width: 30%;" href="https://twitter.com/natura_mexico" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/twitter.png" alt="twitter"></a>
-                    <a style="width: 30%;" href="https://www.instagram.com/natura.mexico/?hl=es" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/instagram.png" alt="instagram"></a>
-                    <a style="width: 30%;" href="https://mx.linkedin.com/company/natura-mexico" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/linkedin.png" alt="inkedin"></a>
-                </div>
-              </div>
-            </div>
-        </footer>
+        <footer style="height: 50px; width: 100%; overflow: hidden; background-color:#000000;">
+        <div class="cen" style="text-align: center;">
+            <table>
+                <tr>
+                    <div style="display:inline-block; position: absolute; text-align: center;">
+                        <h4 style="color: #ffffff;" class="priv"><b class="privv">Consulta nuestro Aviso de Privacidad.</b></h4>
+                    </div>
+                    <td class="alin">
+                        <div class="redes" style="display: inline-block; text-align: right; vertical-align: text-bottom;">
+                            <a href="https://mx.linkedin.com/company/natura-mexico" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/linkedin.png" alt="inkedin"></a>
+                            <a href="https://www.instagram.com/natura.mexico/?hl=es" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/instagram.png" alt="instagram"></a>
+                            <a href="https://twitter.com/natura_mexico" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/twitter.png" alt="twitter"></a>
+                            <a href="https://www.youtube.com/@naturamx" target="_blank"><img class="socimg"src="web_pac2/static/css/imgs/youtube.png" alt="youtube"></a>
+                            <a href="https://www.facebook.com/natura.mexico" target="_blank"><img class="socimg" src="web_pac2/static/css/imgs/facebook-logo.png" alt="facebook"></a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </footer>
 </div>
     <script>
         var lasCookies = document.cookie.replace(/(?:(?:^|.*;\s*)CN\s*\=\s*([^;]*).*$)|^.*$/, "$1");
