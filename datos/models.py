@@ -167,7 +167,7 @@ class usr_sol_rfc(models.Model):
 
 class track_sol(models.Model):
     id_sol = models.CharField(max_length=255)
-    Status_sol = models.CharField(max_length=255)
+    status_sol = models.CharField(max_length=255)
     fecha_ult_mod = models.CharField(max_length=255)
     usuario_mod_sol = models.CharField(max_length=255, null=True)
 

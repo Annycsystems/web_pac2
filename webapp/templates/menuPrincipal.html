@@ -301,7 +301,9 @@
                 tex3= tex2.length-2
                 tex2= tex2.substr(0,tex3)
                 tex2= tex2.replace(strquotes, String.fromCharCode(34))
+                alert(tex2);
             var prue2 = JSON.parse(tex2);
+            alert(prue2);
             busq = prue2.email.search('@');
             busq2= tex2.length;
             ema = prue2.email.substr(0,3) + '*****' + prue2.email.substr(busq,busq2)
@@ -569,7 +571,7 @@
         </div>
         <div>
             <p style="font-size: 2vw" class="bold"> </p><br>
-            <p style="font-size: 2vw" class="bold"> </p><br>
+<!--            <p style="font-size: 2vw" class="bold"> </p><br>-->
             <p class="bold-small"> Selecciona el trámite que deseas realizar </p>
             <table class="cen">
                 <tr>
