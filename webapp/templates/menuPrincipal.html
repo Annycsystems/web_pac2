@@ -16,6 +16,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
+
+    #contgen {
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+    }
     body {
         background-image: url("web_pac2/static/css/imgs/logo_nvo_ngo_com.png");
         background-repeat: no-repeat;
@@ -34,7 +40,7 @@
         }
     }
 
-    @media screen and (max-width: 420px) {
+    @media screen and (max-width: 435px) {
 
         body {
             background-image: url("web_pac2/static/css/imgs/logo_nvo_ngo_com.png");
@@ -84,11 +90,11 @@
             margin-top: 0px;
             position: absolute;
             right: 25px;
-            z-index:3;
+            z-index:4;
         }
 
         .bold-small{
-            margin-top: 8%;
+            margin-top: 21%;
         }
 
         .campocp{
@@ -113,7 +119,7 @@
 
     }
 
-    @media screen and (min-width: 800px) {
+    @media screen and (min-width: 750px) {
 
         .alin{
             text-align: right;
@@ -155,7 +161,6 @@
         }
 
     }
-
     footer {
           background-color: black;
           width: 100%;
@@ -166,7 +171,7 @@
     <script>
        $(document).ready(function(){
             var tex2
-            var tex3
+                var tex3
             var strquotes = /(')/g
                 tex2= "{{ data2|safe }}"
                 tex3= tex2.length
@@ -183,16 +188,15 @@
             document.getElementById("botonesDatos").style.display = "none";
             document.getElementById("botonesEstatus").style.display = "none";
             document.getElementById("botonesDomicilio").style.display = "none";
-            document.getElementById("botonesDatosG").style.display = "none";
+            document.getElementById("botonesDatosfact").style.display = "none";
+            document.getElementById("botonesDatosrefact").style.display = "none";
         }
         function activarDatos(){
             document.getElementById("botonesDatos").style.display = "block";
             document.getElementById("botonesEstatus").style.display = "none";
-            document.getElementById("grid").style.display = "none";
-<!--            document.getElementById("closeal").style.display = "none";-->
         }
 
-        function tkn(){
+        function tkn(tip){
                 var charset= "0123456789"
                 const max = charset.length;
                 let rstr = "";
@@ -203,42 +207,39 @@
                 }
                 var hash = CryptoJS.SHA256(rstr); //sha256 caracteres y num
                 document.cookie = "tkn=" + hash + "; max-age=300";
-                $("#tk").val(rstr);
+                if(tip == "1"){
+                    $("#tk").val(rstr);
+                }else{
+                    $("#tk2").val(rstr);
+                }
 		}
 
         function activarEstatus(){
             document.getElementById("botonesDatos").style.display = "none";
             document.getElementById("botonesEstatus").style.display = "block";
             document.getElementById("botonesDomicilio").style.display = "none";
-            document.getElementById("botonesDatosG").style.display = "none";
+            document.getElementById("botonesDatosfact").style.display = "none";
+            document.getElementById("botonesDatosrefact").style.display = "none";
         }
         function activarDomicilio(){
             document.getElementById("botonesDomicilio").style.display = "block";
-            document.getElementById("botonesDatosG").style.display = "none";
+            document.getElementById("botonesDatosfact").style.display = "none";
+            document.getElementById("botonesDatosrefact").style.display = "none";
         }
-        function activarDatosG(){
+        function activarDatosfact(){
             document.getElementById("botonesDomicilio").style.display = "none";
-            document.getElementById("botonesDatosG").style.display = "block";
+            document.getElementById("botonesDatosfact").style.display = "block";
+            document.getElementById("botonesDatosrefact").style.display = "none";
+        }
+        function activarDatosrefact(){
+            document.getElementById("botonesDomicilio").style.display = "none";
+            document.getElementById("botonesDatosfact").style.display = "none";
+            document.getElementById("botonesDatosrefact").style.display = "block";
         }
         function activarDatosC(){
             document.getElementById("botonesDomicilio").style.display = "none";
-            document.getElementById("botonesDatosG").style.display = "none";
-        }
-        function seleccionDatosG(){
-            var value = document.getElementById('tipoDatosG').value;
-            if(value == 1) {
-                document.getElementById("nombre").style.display = "block";
-                document.getElementById("RFC").style.display = "none";
-                document.getElementById("CURP").style.display = "none";
-            } else if(value == 2) {
-                document.getElementById("nombre").style.display = "none";
-                document.getElementById("RFC").style.display = "block";
-                document.getElementById("CURP").style.display = "none";
-            } else {
-                document.getElementById("nombre").style.display = "none";
-                document.getElementById("RFC").style.display = "none";
-                document.getElementById("CURP").style.display = "block";
-            }
+            document.getElementById("botonesDatosfact").style.display = "none";
+            document.getElementById("botonesDatosrefact").style.display = "none";
         }
 
         function mostrarGrid(){
@@ -277,38 +278,6 @@
               });
         }
 
-        function Bus_CP2(){
-            var estado = document.getElementById('estado2');
-            var municipio = document.getElementById('municipio2');
-            var cp = $("#cp2").val();
-            url = 'http://127.0.0.1:8000/api/';
-            url = url + cp;
-            axios.get(url)
-              .then(response => {
-                 datos = response.data;// response.data ya es un JSON
-                 $("#estado2").val(datos["estado"]);
-                 document.getElementById("estado2").readOnly=true;
-                 $("#municipio2").val(datos["municipio"]);
-                 document.getElementById("municipio2").readOnly=true;
-                 var select = document.getElementById("selectColonia2");
-                 var cols = datos["colonias"];
-                 document.getElementById("selectColonia2").innerHTML= "";
-                    for(var i = 0; i < cols.length; i++) {
-                        var opt = cols[i];
-                        var el = document.createElement("option");
-                        el.textContent = opt;
-                        el.value = opt;
-                        select.appendChild(el);
-                    }
-              }, error => {
-                console.log(error);
-                alert("Codigo Postal incorrecto, favor de verificar longitud de 5 caracteres y que sea correcta la escritura.")
-                $("#estado2").val("");
-                $("#municipio2").val("");
-                document.getElementById("selectColonia2").innerHTML= "";
-              });
-        }
-
         $(function(){
         $('input[type=radio][name=OTP][value=mail]').change(function() {
             var tex2
@@ -336,53 +305,6 @@
         });
 
         $(function(){
-        $('input[type=radio][name=OTP2][value=mail]').change(function() {
-            var tex2
-            var tex3
-            var busq
-            var busq2
-            var ema
-            var strquotes = /(')/g
-                tex2= "{{ data|safe }}"
-                tex3= tex2.length
-                tex2= tex2.substr(11,tex3)
-                tex3= tex2.length-2
-                tex2= tex2.substr(0,tex3)
-                tex2= tex2.replace(strquotes, String.fromCharCode(34))
-            var prue2 = JSON.parse(tex2);
-            busq = prue2.email.search('@');
-            busq2= tex2.length;
-            ema = prue2.email.substr(0,3) + '*****' + prue2.email.substr(busq,busq2)
-            ema= "Correo electronico registrado: </br>" + ema
-            document.getElementById('cont2').innerHTML=ema;
-            $("#run2").show();
-        });
-        });
-        $(function(){
-        $('input[type=radio][name=OTP3][value=mail]').change(function() {
-            var tex2
-            var tex3
-            var busq
-            var busq2
-            var ema
-            var strquotes = /(')/g
-                tex2= "{{ data|safe }}"
-                tex3= tex2.length
-                tex2= tex2.substr(11,tex3)
-                tex3= tex2.length-2
-                tex2= tex2.substr(0,tex3)
-                tex2= tex2.replace(strquotes, String.fromCharCode(34))
-            var prue2 = JSON.parse(tex2);
-            busq = prue2.email.search('@');
-            busq2= tex2.length;
-            ema = prue2.email.substr(0,3) + '*****' + prue2.email.substr(busq,busq2)
-            ema= "Correo electronico registrado: </br>" + ema
-            document.getElementById('cont3').innerHTML=ema;
-            $("#run3").show();
-        });
-        });
-
-        $(function(){
         $('input[type=radio][name=OTP][value=SMS]').change(function() {
             var tex2
             var tex3
@@ -402,6 +324,32 @@
             ema= "Teléfono celular registrado: </br>" + tel
             document.getElementById('cont1').innerHTML=ema;
             $("#run").show();
+        });
+        });
+
+        $(function(){
+        $('input[type=radio][name=OTP2][value=mail]').change(function() {
+            var tex2
+            var tex3
+            var busq
+            var busq2
+            var ema
+            var strquotes = /(')/g
+                tex2= "{{ data|safe }}"
+                tex3= tex2.length
+                tex2= tex2.substr(11,tex3)
+                tex3= tex2.length-2
+                tex2= tex2.substr(0,tex3)
+                tex2= tex2.replace(strquotes, String.fromCharCode(34))
+                alert(tex2);
+            var prue2 = JSON.parse(tex2);
+            alert(prue2);
+            busq = prue2.email.search('@');
+            busq2= tex2.length;
+            ema = prue2.email.substr(0,3) + '*****' + prue2.email.substr(busq,busq2)
+            ema= "Correo electronico registrado: </br>" + ema
+            document.getElementById('cont2').innerHTML=ema;
+            $("#run2").show();
         });
         });
 
@@ -427,31 +375,7 @@
             $("#run2").show();
         });
         });
-        $(function(){
-                $('input[type=radio][name=OTP3][value=SMS]').change(function() {
-                    var tex2
-                    var tex3
-                    var busq
-                    var busq2
-                    var ema
-                    var strquotes = /(')/g
-                        tex2= "{{ data|safe }}"
-                        tex3= tex2.length
-                        tex2= tex2.substr(11,tex3)
-                        tex3= tex2.length-2
-                        tex2= tex2.substr(0,tex3)
-                        tex2= tex2.replace(strquotes, String.fromCharCode(34))
-                    var prue2 = JSON.parse(tex2);
-                    busq2= prue2.tel_cel.length;
-                    tel = prue2.tel_cel.substr(0,2) + '*****' + prue2.tel_cel.substr(7,10)
-                    ema= "Teléfono celular registrado: </br>" + tel
-                    document.getElementById('cont3').innerHTML=ema;
-                    $("#run3").show();
-                });
-                });
 
-
-<!--        //-->
 
         function showContent() {
             var lasCookies = document.cookie.replace(/(?:(?:^|.*;\s*)CN\s*\=\s*([^;]*).*$)|^.*$/, "$1");
@@ -496,39 +420,6 @@
                 document.getElementById("direct").value = "";
             }
         }
-        function showContent3() {
-            var lasCookies = document.cookie.replace(/(?:(?:^|.*;\s*)CN\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-            $("#codi2").val(lasCookies);
-            element = document.getElementById("formdomi2");
-            element2 = document.getElementById("formdomi3");
-            check = document.getElementById("op3");
-            check2 = document.getElementById("op4");
-            var checkbox = document.getElementById("op4");
-            if (check.checked) {
-                checkbox.checked = false;
-                element2.style.display='none';
-                element.style.display='block';
-                $("#direct2").val('Fiscal');
-            }
-        }        
-        
-        function showContent4() {
-            var lasCookies = document.cookie.replace(/(?:(?:^|.*;\s*)CN\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-            $("#codi3").val(lasCookies);
-            element = document.getElementById("formdomi3");
-            element2 = document.getElementById("formdomi2");
-            check = document.getElementById("op3");
-            check2 = document.getElementById("op4");
-            var checkbox = document.getElementById("op3");
-            if (check2.checked) {
-                checkbox.checked = false;
-                element2.style.display='none';
-                element.style.display='block';
-                $("#RFC2").val('RFC');
-            }
-        }
-
-<!--        //-->
 
         $(function(){
         $('#contacto').click(function (event)
@@ -545,18 +436,26 @@
         });
 
         $(function(){
-        $('#generales').click(function (event)
+        $('#fact').click(function (event)
         {
-            activarDatosG();
+            activarDatosfact();
         });
         });
 
-        function alerta()
+        $(function(){
+        $('#refact').click(function (event)
+        {
+            activarDatosrefact();
+        });
+        });
+
+        function alerta(tip)
         {
             var mensaje;
             mensaje = "Por favor verifica que todos los datos sean correctos antes de dar click en continuar";
             if (confirm(mensaje) == true) {
                 tkn();
+                document.cookie = "tipo=" + tip;
                 $("#okfor").click();
             }
         }
@@ -564,17 +463,59 @@
         $(function(){
         $('#run').click(function (event)
         {
-           alerta();
+            var mensaje;
+            mensaje = "Por favor verifica que todos los datos sean correctos antes de dar click en continuar";
+            if (confirm(mensaje) == true) {
+                tkn("1");
+                document.cookie = "tipo=" + "DIRECCION";
+                $("#okfor").click();
+            }
+        });
+        });
+
+        $(function(){
+        $('#run2').click(function (event)
+        {
+           var mensaje;
+            mensaje = "Por favor verifica que todos los datos sean correctos antes de dar click en continuar";
+            if (confirm(mensaje) == true) {
+                tkn("2");
+                document.cookie = "tipo=" + "FISCAL";
+                $("#okfor2").click();
+            }
         });
         });
 
         function mayus(e) {
             e.value = e.value.toUpperCase();
         }
-</script>
 
+
+
+	function filter_options(){
+        if (typeof $("#selectreg").data('options') === "undefined") {
+           $("#selectreg").data('options', $('#selectuso option').clone());
+      }
+        var id =  document.datfis.selectreg.options[datfis.selectreg.selectedIndex].id
+        var options = $("#selectreg").data('options').filter('[data-option=' + id + ']');
+        $('#selectuso').html(options);
+    }
+
+    $(function () {
+            //Ejecutar el filtro la primera vez
+            filter_options();
+
+        //actualizar al cambiar el factor
+        $("#selectreg").change(function () {
+            filter_options();
+            });
+
+    });
+</script>
+</head>
 
 <body id="bod" onLoad="desactivar()" style="margin: 0 0 100px; padding: 0px;">
+ <div id="contgen">
     <div style="text-align: center;">
         <button  class="soporte" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
             <img style="max-width: 80%; max-height: 80%;" src="web_pac2/static/css/imgs/cont_bco.png">
@@ -593,7 +534,6 @@
         </div>
         <div>
             <p style="font-size: 2vw" class="bold"> </p><br>
-<!--            <p style="font-size: 2vw" class="bold"> </p><br>-->
             <p class="bold-small"> Selecciona el trámite que deseas realizar </p>
             <table class="cen">
                 <tr>
@@ -605,7 +545,8 @@
                           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <button id="contacto" type="button" class="actualizacion" data-toggle="modal" data-target="#myModal">Datos de contacto</button>
                             <button class="actualizacion" type="button" id="domicilio">Domicilio(s)</button>
-                            <button class="actualizacion" type="button" id="generales" style="display:none;">Informacíon facturación</button>
+                            <button class="actualizacion" type="button" id="fact" >Datos para facturación</button>
+                            <button class="actualizacion" type="button" id="refact" >Refacturación de pedidos</button>
                           </div>
                         </div>
                     </td>
@@ -641,30 +582,60 @@
 						<label>Conoce más </label><a href="https://www.youtube.com/embed/eCopZQge-Ow" target="_blank"> aqui</a>
                 </div>
                 <div class="modal-footer" style="align-items: baseline;">
-
                   <a href="https://minegocio.natura.com.mx/ingreso/mx?return_url=" target="_blank" onClick="window.open(this.href); return false;" data-dismiss="modal">Ir a Mi negócio</a>
 				  <button type="button" class="enviar" data-dismiss="modal">Regresar</button>
                 </div>
-
                 </div>
 
                 </div>
             </div> <!--modal-->
         <button type="button" class="actualizacion" onclick="activarDomicilio()" style="display:none;">Domicilio (s)</button>
-        <button type="button" class="actualizacion" onclick="activarDatosG()" style="display:none;">Datos generales</button>
+        <button type="button" class="actualizacion" onclick="activarDatosfact()" style="display:none;">Datos Datos para facturación</button>
+        <button type="button" class="actualizacion" onclick="activarDatosrefact()" style="display:none;">Refacturación de pedidos</button>
     </div> <!--Botones para cambio de datos-->
 
     <div class="mx-auto" id="botonesEstatus" style="width: 60%;">
         <span class="bold-smaller"> </span><br>
-        <span class="bold-smaller">Ingresa tu número de folio </span><br>
-        <form style="display: flex; flex-direction: column; align-items: center;" action="status" method="POST">
-            <input id="folio" name="folio" type="text" class="campo-centrado cen" placeholder="Folio"><br>
-            <button class="enviar">Aceptar</button><br>
-            {% csrf_token %}
-        </form>
-        <div>
-                {{ trac }}
+<!--        <form style="display: flex; flex-direction: column; align-items: center;" action="status" method="POST">-->
+        <div style="text-align: center;">
+            <span class="bold-small-centrado">Ingresa tu número de folio </span><br>
+            <input type="hidden" name="codig" id="codig" value="{{data2}}">
+            <input id="num_fol" name="num_fol" type="text" class="camponum" placeholder="Folio">
+            <button class="enviar" id="btn_consul" name="btn_consul">Aceptar</button><br>
         </div>
+        <div id="track_info" name="track_info" class="cen" style="display:none">
+            <table class="table">
+                <tr>
+                    <th>Folio</th>
+                    <th>Tipo de solicitud</th>
+                    <th>Estatus</th>
+                    <th>Fecha</th>
+                </tr>
+                <tr>
+                    <td id="solcicitud"></td>
+                    <td id="tip_sol"></td>
+                    <td id="est_sol"></td>
+                    <td id="fech_Sol"></td>
+                </tr>
+            </table>
+        </div>
+        <div id="track_info_siv" name="track_info_siv" class="cen" style="display:none">
+            <table class="table">
+                <tr>
+                    <th>Folio</th>
+                    <th>Estatus</th>
+                    <th>Motivo de Rechazo</th>
+                    <th>Comentarios</th>
+                </tr>
+                <tr>
+                    <td id="solcicitud1"></td>
+                    <td id="est_sol1"></td>
+                    <td id="mot_rech1"></td>
+                    <td id="coment1"></td>
+                </tr>
+            </table>
+        </div>
+
     </div>  <!--Botones para consulta de tickets-->
 
     <div class="form container-fluid" id="botonesDomicilio" style="margin-top: 15px;">
@@ -690,7 +661,8 @@
                     </table>
 				</div>
                 <form id="formdomi" class="default" onkeydown="return event.key != 'Enter';" action="validate" method="post" enctype="multipart/form-data" style="display:none; width: 100%">{% csrf_token %}
-                    <INPUT id="codi" name="codi" style="display:none;">
+                    <!--INPUT id="codi" name="codi" style="display:none;"-->
+                    <input type="hidden" name="codi" value="{{data2}}">
                     <INPUT id="direct" name="direct" style="display:none;">
                     <INPUT id="tk" name="tk" style="display:none;">
                     <label class="EtiNom" >Código postal </label>
@@ -709,7 +681,7 @@
                     <label class="EtiNum" >Número exterior </label>
                     <input id="NoExt" name="NoExt" type="text" class="camponum" required><br>
                     <label class="EtiNom" >Referencias </label>
-                    <input id="Ref" name="Ref" type="text" class="campo"><br>
+                    <input id="Ref" name="Ref" type="text" class="campo" required><br>
 <!--                    <label class="EtiNom" >INE Frente/reverso </label>-->
 <!--                    <input type="file" class="campo INEUp" style="display: inline;" name="INEUp" id="INEUp" required accept=".png, .jpg, .jpeg,.pdf">-->
                     <div class="col-sm" style="text-align: center;">
@@ -724,57 +696,300 @@
                     </tr>
                     <a type="button" id="run" class="btn enviar"  style="display:none">Continuar</a>
                     <button type="submit" id="okfor" style="display:none">cont</button>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                     </div>
                 </form>
         </div>
     </div> <!--Cambio de domicilio-->
 
-    <div id="botonesDatosG" class="container-fluid" style="width: 60%; margin-top: 15px;">
+    <div id="botonesDatosfact" class="container-fluid" style="width: 60%; margin-top: 15px;">
         <div class="row">
-            <h4 class="cen"><b>Información de facturación</b></h4>
                 <div style="text-align: center;">
-					<label class="bold-small-centrado"style="margin-bottom: 10px;">Selecciona la opción que quieres modificar:</label><br>
-                    <table class="cen" style="display: inline;">
-                        <tr>
-                            <td>
-                                <div class="form-check form-switch">
-                                  <input class="form-check-input" id="op3" value="Entrega" type="checkbox" role="switch" id="flexSwitchCheck3" onchange="javascript:showContent3()">
-                                  <label class="form-check-label" for="flexSwitchCheck3">Domiciliio fiscal&ensp;&ensp;</label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-check form-switch">
-                                  <input class="form-check-input" id="op4" value="Alternativo" type="checkbox" role="switch" id="flexSwitchCheck4" onchange="javascript:showContent4()">
-                                  <label class="form-check-label" for="flexSwitchCheck4">RFC</label>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-				</div>
-                <form id="formdomi2" class="default" onkeydown="return event.key != 'Enter';" action="validate" method="post" enctype="multipart/form-data" style="display:none;">{% csrf_token %}
-                    <INPUT id="codi2" name="codi2" style="display:none;">
-                    <INPUT id="direct2" name="direct" style="display:none;">
-                    <INPUT id="tk2" name="tk2" style="display:none;">
-                    <label class="EtiNom" style=" width: 5px;">Código postal </label>
-                    <input id="cp2" name="cp2" type="text" class="campocp" placeholder="55555" required onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" maxlength="5">
-                    <button class="enviar" onclick="Bus_CP2()">Consultar</button><br>
-                    <label class="EtiNum">Estado </label>
-                    <input id="estado2" name="estado2" align='right' type="text" class="camponum" readonly>
-                    <label class="EtiNum"  >Alcaldía/Municipio</label>
-                    <input name="municipio2" id="municipio2" type="text" class="camponum" readonly><br>
-                    <label class="EtiNom"  >Colonia </label>
-                    <select  id="selectColonia2" name="selectColonia2" class="campo" required> <option></option> </select><br>
-                    <label class="EtiNom" >Calle </label>
-                    <input id="calle2" name="calle2" type="text" class="campo" onkeyup="mayus(this);" required><br>
-                    <label class="EtiNum" >Número interior </label>
-                    <input id="NoInt2" name="NoInt2" type="text" class="camponum" onkeyup="mayus(this);" required>
-                    <label class="EtiNum" >Número exterior </label>
-                    <input id="NoExt2" name="NoExt2" type="text" class="camponum" onkeyup="mayus(this);" required><br>
-                    <label class="EtiNom" >Referencias </label>
-                    <input id="Ref2" name="Ref2" type="text" onkeyup="mayus(this);" class="campo"><br>
-                    <label class="EtiNom" >INE Frente/reverso </label>
-                    <input type="file" class="campo" style="display: inline;" name="INEUp2" required accept=".png, .jpg, .jpeg,.pdf">
-                    <div class="col-sm" style="text-align: center;">
+                    <h4 class="cen"><b>Información de facturación</b></h4>
+					<p>Aquí podrás dar de alta o corregir tus datos fiscales para la facturación de tus <b>pedidos</b>, recuerda tener a la mano tu Constancia de Situación Fiscal</p>
+                    <a href="https://www.sat.gob.mx/aplicacion/53027/genera-tu-constancia-de-situacion-fiscal" target="_blank">Consúltala aquí</a>
+                    <form name="datfis" class="default" onkeydown="return event.key != 'Enter';" action="validatefis" method="post" enctype="multipart/form-data" style="width: 100%">{% csrf_token %}
+                        <input type="hidden" name="codi" value="{{data2}}">
+                        <INPUT type="hidden" id="tk2" name="tk2" style="display:none;">
+                        <label class="EtiNom">Régimen fiscal</label>
+                        <select  id="selectreg" name="selectReg" class="campo" required>
+                            <option value="601 General de Ley Personas Morales" id="601">General de Ley Personas Morales</option>
+                            <option value="603 Personas Morales con Fines no Lucrativos" id="603">Personas Morales con Fines no Lucrativos</option>
+                            <option value="605 Sueldos y Salarios e Ingresos Asimilados a Salarios" id="605">Sueldos y Salarios e Ingresos Asimilados a Salarios</option>
+                            <option value="606 Arrendamiento" id="606">Arrendamiento</option>
+                            <option value="607 Régimen de Enajenación o Adquisición de Bienes" id="607">Régimen de Enajenación o Adquisición de Bienes</option>
+                            <option value="608 Demás ingresos" id="608">Demás ingresos</option>
+                            <option value="610 Residentes en el Extranjero sin Establecimiento Permanente en México" id="610">Residentes en el Extranjero sin Establecimiento Permanente en México</option>
+                            <option value="611 Ingresos por Dividendos (socios y accionistas)" id="611">Ingresos por Dividendos (socios y accionistas)</option>
+                            <option value="612 Personas Físicas con Actividades Empresariales y Profesionales" id="612">Personas Físicas con Actividades Empresariales y Profesionales</option>
+                            <option value="614 Ingresos por intereses" id="614">Ingresos por intereses</option>
+                            <option value="615 Régimen de los ingresos por obtención de premios" id="615">Régimen de los ingresos por obtención de premios</option>
+                            <option value="616 Sin obligaciones fiscales" id="616">Sin obligaciones fiscales</option>
+                            <option value="620 Sociedades Cooperativas de Producción que optan por diferir sus ingresos" id="620">Sociedades Cooperativas de Producción que optan por diferir sus ingresos</option>
+                            <option value="621 Incorporación Fiscal" id="621">Incorporación Fiscal</option>
+                            <option value="622 Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras" id="622">Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras</option>
+                            <option value="623 Opcional para Grupos de Sociedades" id="623">Opcional para Grupos de Sociedades</option>
+                            <option value="624 Coordinados" id="624">Coordinados</option>
+                            <option value="625 Régimen de las Actividades Empresariales con ingresos a través de Plataformas Tecnológicas" id="625">Régimen de las Actividades Empresariales con ingresos a través de Plataformas Tecnológicas</option>
+                            <option value="626 Régimen Simplificado de Confianza" id="626">Régimen Simplificado de Confianza</option>
+                        </select><br>
+                        <label class="EtiNom">Uso CFDI</label>
+                        <select  id="selectuso" name="selectuso" class="campo" required>
+                            <option data-option="601"    value="G01 Adquisición de mercancías.">Adquisición de mercancías.</option>
+                            <option data-option="601"    value="G02 Devoluciones, descuentos o bonificaciones.">Devoluciones, descuentos o bonificaciones.</option>
+                            <option data-option="601"    value="G03 Gastos en general.">Gastos en general.</option>
+                            <option data-option="601"    value="I01 Construcciones.">Construcciones.</option>
+                            <option data-option="601"    value="I02 Mobiliario y equipo de oficina por inversiones.">Mobiliario y equipo de oficina por inversiones.</option>
+                            <option data-option="601"    value="I03 Equipo de transporte.">Equipo de transporte.</option>
+                            <option data-option="601"    value="I04 Equipo de computo y accesorios.">Equipo de computo y accesorios.</option>
+                            <option data-option="601"    value="I05 Dados, troqueles, moldes, matrices y herramental.">Dados, troqueles, moldes, matrices y herramental.</option>
+                            <option data-option="601"    value="I06 Comunicaciones telefónicas.">Comunicaciones telefónicas.</option>
+                            <option data-option="601"    value="I07 Comunicaciones satelitales.">Comunicaciones satelitales.</option>
+                            <option data-option="601"    value="I08 Otra maquinaria y equipo.">Otra maquinaria y equipo.</option>
+                            <option data-option="601"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="601"    value="CP01 Pagos">Pagos</option>
+                            <option data-option="603"    value="G01 Adquisición de mercancías.">Adquisición de mercancías.</option>
+                            <option data-option="603"    value="G02 Devoluciones, descuentos o bonificaciones.">Devoluciones, descuentos o bonificaciones.</option>
+                            <option data-option="603"    value="G03 Gastos en general.">Gastos en general.</option>
+                            <option data-option="603"    value="I01 Construcciones.">Construcciones.</option>
+                            <option data-option="603"    value="I02 Mobiliario y equipo de oficina por inversiones.">Mobiliario y equipo de oficina por inversiones.</option>
+                            <option data-option="603"    value="I03 Equipo de transporte.">Equipo de transporte.</option>
+                            <option data-option="603"    value="I04 Equipo de computo y accesorios.">Equipo de computo y accesorios.</option>
+                            <option data-option="603"    value="I05 Dados, troqueles, moldes, matrices y herramental.">Dados, troqueles, moldes, matrices y herramental.</option>
+                            <option data-option="603"    value="I06 Comunicaciones telefónicas.">Comunicaciones telefónicas.</option>
+                            <option data-option="603"    value="I07 Comunicaciones satelitales.">Comunicaciones satelitales.</option>
+                            <option data-option="603"    value="I08 Otra maquinaria y equipo.">Otra maquinaria y equipo.</option>
+                            <option data-option="603"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="603"    value="CP01 Pagos">Pagos</option>
+                            <option data-option="605"    value="D01 Honorarios médicos, dentales y gastos hospitalarios.">Honorarios médicos, dentales y gastos hospitalarios.</option>
+                            <option data-option="605"    value="D02 Gastos médicos por incapacidad o discapacidad.">Gastos médicos por incapacidad o discapacidad.</option>
+                            <option data-option="605"    value="D03 Gastos funerales.">Gastos funerales.</option>
+                            <option data-option="605"    value="D04 Donativos.">Donativos.</option>
+                            <option data-option="605"    value="D05 Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).">Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).</option>
+                            <option data-option="605"    value="D06 Aportaciones voluntarias al SAR.">Aportaciones voluntarias al SAR.</option>
+                            <option data-option="605"    value="D07 Primas por seguros de gastos médicos.">Primas por seguros de gastos médicos.</option>
+                            <option data-option="605"    value="D08 Gastos de transportación escolar obligatoria.">Gastos de transportación escolar obligatoria.</option>
+                            <option data-option="605"    value="D09 Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.">Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.</option>
+                            <option data-option="605"    value="D10 Pagos por servicios educativos (colegiaturas).">Pagos por servicios educativos (colegiaturas).</option>
+                            <option data-option="605"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="605"    value="CP01 Pagos">Pagos</option>
+                            <option data-option="605"    value="CN01 Nómina">Nómina</option>
+                            <option data-option="606"    value="G01 Adquisición de mercancías.">Adquisición de mercancías.</option>
+                            <option data-option="606"    value="G02 Devoluciones, descuentos o bonificaciones.">Devoluciones, descuentos o bonificaciones.</option>
+                            <option data-option="606"    value="G03 Gastos en general.">Gastos en general.</option>
+                            <option data-option="606"    value="I01 Construcciones.">Construcciones.</option>
+                            <option data-option="606"    value="I02 Mobiliario y equipo de oficina por inversiones.">Mobiliario y equipo de oficina por inversiones.</option>
+                            <option data-option="606"    value="I03 Equipo de transporte.">Equipo de transporte.</option>
+                            <option data-option="606"    value="I04 Equipo de computo y accesorios.">Equipo de computo y accesorios.</option>
+                            <option data-option="606"    value="I05 Dados, troqueles, moldes, matrices y herramental.">Dados, troqueles, moldes, matrices y herramental.</option>
+                            <option data-option="606"    value="I06 Comunicaciones telefónicas.">Comunicaciones telefónicas.</option>
+                            <option data-option="606"    value="I07 Comunicaciones satelitales.">Comunicaciones satelitales.</option>
+                            <option data-option="606"    value="I08 Otra maquinaria y equipo.">Otra maquinaria y equipo.</option>
+                            <option data-option="606"    value="D01 Honorarios médicos, dentales y gastos hospitalarios.">Honorarios médicos, dentales y gastos hospitalarios.</option>
+                            <option data-option="606"    value="D02 Gastos médicos por incapacidad o discapacidad.">Gastos médicos por incapacidad o discapacidad.</option>
+                            <option data-option="606"    value="D03 Gastos funerales.">Gastos funerales.</option>
+                            <option data-option="606"    value="D04 Donativos.">Donativos.</option>
+                            <option data-option="606"    value="D05 Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).">Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).</option>
+                            <option data-option="606"    value="D06 Aportaciones voluntarias al SAR.">Aportaciones voluntarias al SAR.</option>
+                            <option data-option="606"    value="D07 Primas por seguros de gastos médicos.">Primas por seguros de gastos médicos.</option>
+                            <option data-option="606"    value="D08 Gastos de transportación escolar obligatoria.">Gastos de transportación escolar obligatoria.</option>
+                            <option data-option="606"    value="D09 Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.">Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.</option>
+                            <option data-option="606"    value="D10 Pagos por servicios educativos (colegiaturas).">Pagos por servicios educativos (colegiaturas).</option>
+                            <option data-option="606"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="606"    value="CP01 Pagos">Pagos</option>
+                            <option data-option="607"    value="D01 Honorarios médicos, dentales y gastos hospitalarios.">Honorarios médicos, dentales y gastos hospitalarios.</option>
+                            <option data-option="607"    value="D02 Gastos médicos por incapacidad o discapacidad.">Gastos médicos por incapacidad o discapacidad.</option>
+                            <option data-option="607"    value="D03 Gastos funerales.">Gastos funerales.</option>
+                            <option data-option="607"    value="D04 Donativos.">Donativos.</option>
+                            <option data-option="607"    value="D05 Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).">Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).</option>
+                            <option data-option="607"    value="D06 Aportaciones voluntarias al SAR.">Aportaciones voluntarias al SAR.</option>
+                            <option data-option="607"    value="D07 Primas por seguros de gastos médicos.">Primas por seguros de gastos médicos.</option>
+                            <option data-option="607"    value="D08 Gastos de transportación escolar obligatoria.">Gastos de transportación escolar obligatoria.</option>
+                            <option data-option="607"    value="D09 Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.">Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.</option>
+                            <option data-option="607"    value="D10 Pagos por servicios educativos (colegiaturas).">Pagos por servicios educativos (colegiaturas).</option>
+                            <option data-option="607"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="607"    value="CP01 Pagos">Pagos</option>
+                            <option data-option="608"    value="D01 Honorarios médicos, dentales y gastos hospitalarios.">Honorarios médicos, dentales y gastos hospitalarios.</option>
+                            <option data-option="608"    value="D02 Gastos médicos por incapacidad o discapacidad.">Gastos médicos por incapacidad o discapacidad.</option>
+                            <option data-option="608"    value="D03 Gastos funerales.">Gastos funerales.</option>
+                            <option data-option="608"    value="D04 Donativos.">Donativos.</option>
+                            <option data-option="608"    value="D05 Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).">Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).</option>
+                            <option data-option="608"    value="D06 Aportaciones voluntarias al SAR.">Aportaciones voluntarias al SAR.</option>
+                            <option data-option="608"    value="D07 Primas por seguros de gastos médicos.">Primas por seguros de gastos médicos.</option>
+                            <option data-option="608"    value="D08 Gastos de transportación escolar obligatoria.">Gastos de transportación escolar obligatoria.</option>
+                            <option data-option="608"    value="D09 Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.">Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.</option>
+                            <option data-option="608"    value="D10 Pagos por servicios educativos (colegiaturas).">Pagos por servicios educativos (colegiaturas).</option>
+                            <option data-option="608"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="608"    value="CP01 Pagos">Pagos</option>
+                            <option data-option="610"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="610"    value="CP01 Pagos">Pagos</option>
+                            <option data-option="611"    value="D01 Honorarios médicos, dentales y gastos hospitalarios.">Honorarios médicos, dentales y gastos hospitalarios.</option>
+                            <option data-option="611"    value="D02 Gastos médicos por incapacidad o discapacidad.">Gastos médicos por incapacidad o discapacidad.</option>
+                            <option data-option="611"    value="D03 Gastos funerales.">Gastos funerales.</option>
+                            <option data-option="611"    value="D04 Donativos.">Donativos.</option>
+                            <option data-option="611"    value="D05 Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).">Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).</option>
+                            <option data-option="611"    value="D06 Aportaciones voluntarias al SAR.">Aportaciones voluntarias al SAR.</option>
+                            <option data-option="611"    value="D07 Primas por seguros de gastos médicos.">Primas por seguros de gastos médicos.</option>
+                            <option data-option="611"    value="D08 Gastos de transportación escolar obligatoria.">Gastos de transportación escolar obligatoria.</option>
+                            <option data-option="611"    value="D09 Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.">Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.</option>
+                            <option data-option="611"    value="D10 Pagos por servicios educativos (colegiaturas).">Pagos por servicios educativos (colegiaturas).</option>
+                            <option data-option="611"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="611"    value="CP01 Pagos">Pagos</option>
+                            <option data-option="612"    value="G01 Adquisición de mercancías.">Adquisición de mercancías.</option>
+                            <option data-option="612"    value="G02 Devoluciones, descuentos o bonificaciones.">Devoluciones, descuentos o bonificaciones.</option>
+                            <option data-option="612"    value="G03 Gastos en general.">Gastos en general.</option>
+                            <option data-option="612"    value="I01 Construcciones.">Construcciones.</option>
+                            <option data-option="612"    value="I02 Mobiliario y equipo de oficina por inversiones.">Mobiliario y equipo de oficina por inversiones.</option>
+                            <option data-option="612"    value="I03 Equipo de transporte.">Equipo de transporte.</option>
+                            <option data-option="612"    value="I04 Equipo de computo y accesorios.">Equipo de computo y accesorios.</option>
+                            <option data-option="612"    value="I05 Dados, troqueles, moldes, matrices y herramental.">Dados, troqueles, moldes, matrices y herramental.</option>
+                            <option data-option="612"    value="I06 Comunicaciones telefónicas.">Comunicaciones telefónicas.</option>
+                            <option data-option="612"    value="I07 Comunicaciones satelitales.">Comunicaciones satelitales.</option>
+                            <option data-option="612"    value="I08 Otra maquinaria y equipo.">Otra maquinaria y equipo.</option>
+                            <option data-option="612"    value="D01 Honorarios médicos, dentales y gastos hospitalarios.">Honorarios médicos, dentales y gastos hospitalarios.</option>
+                            <option data-option="612"    value="D02 Gastos médicos por incapacidad o discapacidad.">Gastos médicos por incapacidad o discapacidad.</option>
+                            <option data-option="612"    value="D03 Gastos funerales.">Gastos funerales.</option>
+                            <option data-option="612"    value="D04 Donativos.">Donativos.</option>
+                            <option data-option="612"    value="D05 Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).">Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).</option>
+                            <option data-option="612"    value="D06 Aportaciones voluntarias al SAR.">Aportaciones voluntarias al SAR.</option>
+                            <option data-option="612"    value="D07 Primas por seguros de gastos médicos.">Primas por seguros de gastos médicos.</option>
+                            <option data-option="612"    value="D08 Gastos de transportación escolar obligatoria.">Gastos de transportación escolar obligatoria.</option>
+                            <option data-option="612"    value="D09 Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.">Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.</option>
+                            <option data-option="612"    value="D10 Pagos por servicios educativos (colegiaturas).">Pagos por servicios educativos (colegiaturas).</option>
+                            <option data-option="612"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="612"    value="CP01 Pagos">Pagos</option>
+                            <option data-option="614"    value="D01 Honorarios médicos, dentales y gastos hospitalarios.">Honorarios médicos, dentales y gastos hospitalarios.</option>
+                            <option data-option="614"    value="D02 Gastos médicos por incapacidad o discapacidad.">Gastos médicos por incapacidad o discapacidad.</option>
+                            <option data-option="614"    value="D03 Gastos funerales.">Gastos funerales.</option>
+                            <option data-option="614"    value="D04 Donativos.">Donativos.</option>
+                            <option data-option="614"    value="D05 Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).">Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).</option>
+                            <option data-option="614"    value="D06 Aportaciones voluntarias al SAR.">Aportaciones voluntarias al SAR.</option>
+                            <option data-option="614"    value="D07 Primas por seguros de gastos médicos.">Primas por seguros de gastos médicos.</option>
+                            <option data-option="614"    value="D08 Gastos de transportación escolar obligatoria.">Gastos de transportación escolar obligatoria.</option>
+                            <option data-option="614"    value="D09 Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.">Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.</option>
+                            <option data-option="614"    value="D10 Pagos por servicios educativos (colegiaturas).">Pagos por servicios educativos (colegiaturas).</option>
+                            <option data-option="614"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="614"    value="CP01 Pagos">Pagos</option>
+                            <option data-option="615"    value="D01 Honorarios médicos, dentales y gastos hospitalarios.">Honorarios médicos, dentales y gastos hospitalarios.</option>
+                            <option data-option="615"    value="D02 Gastos médicos por incapacidad o discapacidad.">Gastos médicos por incapacidad o discapacidad.</option>
+                            <option data-option="615"    value="D03 Gastos funerales.">Gastos funerales.</option>
+                            <option data-option="615"    value="D04 Donativos.">Donativos.</option>
+                            <option data-option="615"    value="D05 Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).">Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).</option>
+                            <option data-option="615"    value="D06 Aportaciones voluntarias al SAR.">Aportaciones voluntarias al SAR.</option>
+                            <option data-option="615"    value="D07 Primas por seguros de gastos médicos.">Primas por seguros de gastos médicos.</option>
+                            <option data-option="615"    value="D08 Gastos de transportación escolar obligatoria.">Gastos de transportación escolar obligatoria.</option>
+                            <option data-option="615"    value="D09 Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.">Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.</option>
+                            <option data-option="615"    value="D10 Pagos por servicios educativos (colegiaturas).">Pagos por servicios educativos (colegiaturas).</option>
+                            <option data-option="615"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="615"    value="CP01 Pagos">Pagos</option>
+                            <option data-option="616"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="616"    value="CP01 Pagos">Pagos</option>
+                            <option data-option="620"    value="G01 Adquisición de mercancías.">Adquisición de mercancías.</option>
+                            <option data-option="620"    value="G02 Devoluciones, descuentos o bonificaciones.">Devoluciones, descuentos o bonificaciones.</option>
+                            <option data-option="620"    value="G03 Gastos en general.">Gastos en general.</option>
+                            <option data-option="620"    value="I01 Construcciones.">Construcciones.</option>
+                            <option data-option="620"    value="I02 Mobiliario y equipo de oficina por inversiones.">Mobiliario y equipo de oficina por inversiones.</option>
+                            <option data-option="620"    value="I03 Equipo de transporte.">Equipo de transporte.</option>
+                            <option data-option="620"    value="I04 Equipo de computo y accesorios.">Equipo de computo y accesorios.</option>
+                            <option data-option="620"    value="I05 Dados, troqueles, moldes, matrices y herramental.">Dados, troqueles, moldes, matrices y herramental.</option>
+                            <option data-option="620"    value="I06 Comunicaciones telefónicas.">Comunicaciones telefónicas.</option>
+                            <option data-option="620"    value="I07 Comunicaciones satelitales.">Comunicaciones satelitales.</option>
+                            <option data-option="620"    value="I08 Otra maquinaria y equipo.">Otra maquinaria y equipo.</option>
+                            <option data-option="620"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="620"    value="CP01 Pagos">Pagos</option>
+                            <option data-option="621"    value="G01 Adquisición de mercancías.">Adquisición de mercancías.</option>
+                            <option data-option="621"    value="G02 Devoluciones, descuentos o bonificaciones.">Devoluciones, descuentos o bonificaciones.</option>
+                            <option data-option="621"    value="G03 Gastos en general.">Gastos en general.</option>
+                            <option data-option="621"    value="I01 Construcciones.">Construcciones.</option>
+                            <option data-option="621"    value="I02 Mobiliario y equipo de oficina por inversiones.">Mobiliario y equipo de oficina por inversiones.</option>
+                            <option data-option="621"    value="I03 Equipo de transporte.">Equipo de transporte.</option>
+                            <option data-option="621"    value="I04 Equipo de computo y accesorios.">Equipo de computo y accesorios.</option>
+                            <option data-option="621"    value="I05 Dados, troqueles, moldes, matrices y herramental.">Dados, troqueles, moldes, matrices y herramental.</option>
+                            <option data-option="621"    value="I06 Comunicaciones telefónicas.">Comunicaciones telefónicas.</option>
+                            <option data-option="621"    value="I07 Comunicaciones satelitales.">Comunicaciones satelitales.</option>
+                            <option data-option="621"    value="I08 Otra maquinaria y equipo.">Otra maquinaria y equipo.</option>
+                            <option data-option="621"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="621"    value="CP01 Pagos">Pagos</option>
+                            <option data-option="622"    value="G01 Adquisición de mercancías.">Adquisición de mercancías.</option>
+                            <option data-option="622"    value="G02 Devoluciones, descuentos o bonificaciones.">Devoluciones, descuentos o bonificaciones.</option>
+                            <option data-option="622"    value="G03 Gastos en general.">Gastos en general.</option>
+                            <option data-option="622"    value="I01 Construcciones.">Construcciones.</option>
+                            <option data-option="622"    value="I02 Mobiliario y equipo de oficina por inversiones.">Mobiliario y equipo de oficina por inversiones.</option>
+                            <option data-option="622"    value="I03 Equipo de transporte.">Equipo de transporte.</option>
+                            <option data-option="622"    value="I04 Equipo de computo y accesorios.">Equipo de computo y accesorios.</option>
+                            <option data-option="622"    value="I05 Dados, troqueles, moldes, matrices y herramental.">Dados, troqueles, moldes, matrices y herramental.</option>
+                            <option data-option="622"    value="I06 Comunicaciones telefónicas.">Comunicaciones telefónicas.</option>
+                            <option data-option="622"    value="I07 Comunicaciones satelitales.">Comunicaciones satelitales.</option>
+                            <option data-option="622"    value="I08 Otra maquinaria y equipo.">Otra maquinaria y equipo.</option>
+                            <option data-option="622"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="622"    value="CP01 Pagos">Pagos</option>
+                            <option data-option="623"    value="G01 Adquisición de mercancías.">Adquisición de mercancías.</option>
+                            <option data-option="623"    value="G02 Devoluciones, descuentos o bonificaciones.">Devoluciones, descuentos o bonificaciones.</option>
+                            <option data-option="623"    value="G03 Gastos en general.">Gastos en general.</option>
+                            <option data-option="623"    value="I01 Construcciones.">Construcciones.</option>
+                            <option data-option="623"    value="I02 Mobiliario y equipo de oficina por inversiones.">Mobiliario y equipo de oficina por inversiones.</option>
+                            <option data-option="623"    value="I03 Equipo de transporte.">Equipo de transporte.</option>
+                            <option data-option="623"    value="I04 Equipo de computo y accesorios.">Equipo de computo y accesorios.</option>
+                            <option data-option="623"    value="I05 Dados, troqueles, moldes, matrices y herramental.">Dados, troqueles, moldes, matrices y herramental.</option>
+                            <option data-option="623"    value="I06 Comunicaciones telefónicas.">Comunicaciones telefónicas.</option>
+                            <option data-option="623"    value="I07 Comunicaciones satelitales.">Comunicaciones satelitales.</option>
+                            <option data-option="623"    value="I08 Otra maquinaria y equipo.">Otra maquinaria y equipo.</option>
+                            <option data-option="623"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="623"    value="CP01 Pagos">Pagos</option>
+                            <option data-option="624"    value="G01 Adquisición de mercancías.">Adquisición de mercancías.</option>
+                            <option data-option="624"    value="G02 Devoluciones, descuentos o bonificaciones.">Devoluciones, descuentos o bonificaciones.</option>
+                            <option data-option="624"    value="G03 Gastos en general.">Gastos en general.</option>
+                            <option data-option="624"    value="I01 Construcciones.">Construcciones.</option>
+                            <option data-option="624"    value="I02 Mobiliario y equipo de oficina por inversiones.">Mobiliario y equipo de oficina por inversiones.</option>
+                            <option data-option="624"    value="I03 Equipo de transporte.">Equipo de transporte.</option>
+                            <option data-option="624"    value="I04 Equipo de computo y accesorios.">Equipo de computo y accesorios.</option>
+                            <option data-option="624"    value="I05 Dados, troqueles, moldes, matrices y herramental.">Dados, troqueles, moldes, matrices y herramental.</option>
+                            <option data-option="624"    value="I06 Comunicaciones telefónicas.">Comunicaciones telefónicas.</option>
+                            <option data-option="624"    value="I07 Comunicaciones satelitales.">Comunicaciones satelitales.</option>
+                            <option data-option="624"    value="I08 Otra maquinaria y equipo.">Otra maquinaria y equipo.</option>
+                            <option data-option="624"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="624"    value="CP01 Pagos">Pagos</option>
+                            <option data-option="625"    value="G01 Adquisición de mercancías.">Adquisición de mercancías.</option>
+                            <option data-option="625"    value="G02 Devoluciones, descuentos o bonificaciones.">Devoluciones, descuentos o bonificaciones.</option>
+                            <option data-option="625"    value="G03 Gastos en general.">Gastos en general.</option>
+                            <option data-option="625"    value="I01 Construcciones.">Construcciones.</option>
+                            <option data-option="625"    value="I02 Mobiliario y equipo de oficina por inversiones.">Mobiliario y equipo de oficina por inversiones.</option>
+                            <option data-option="625"    value="I03 Equipo de transporte.">Equipo de transporte.</option>
+                            <option data-option="625"    value="I04 Equipo de computo y accesorios.">Equipo de computo y accesorios.</option>
+                            <option data-option="625"    value="I05 Dados, troqueles, moldes, matrices y herramental.">Dados, troqueles, moldes, matrices y herramental.</option>
+                            <option data-option="625"    value="I06 Comunicaciones telefónicas.">Comunicaciones telefónicas.</option>
+                            <option data-option="625"    value="I07 Comunicaciones satelitales.">Comunicaciones satelitales.</option>
+                            <option data-option="625"    value="I08 Otra maquinaria y equipo.">Otra maquinaria y equipo.</option>
+                            <option data-option="625"    value="D01 Honorarios médicos, dentales y gastos hospitalarios.">Honorarios médicos, dentales y gastos hospitalarios.</option>
+                            <option data-option="625"    value="D02 Gastos médicos por incapacidad o discapacidad.">Gastos médicos por incapacidad o discapacidad.</option>
+                            <option data-option="625"    value="D03 Gastos funerales.">Gastos funerales.</option>
+                            <option data-option="625"    value="D04 Donativos.">Donativos.</option>
+                            <option data-option="625"    value="D05 Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).">Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).</option>
+                            <option data-option="625"    value="D06 Aportaciones voluntarias al SAR.">Aportaciones voluntarias al SAR.</option>
+                            <option data-option="625"    value="D07 Primas por seguros de gastos médicos.">Primas por seguros de gastos médicos.</option>
+                            <option data-option="625"    value="D08 Gastos de transportación escolar obligatoria.">Gastos de transportación escolar obligatoria.</option>
+                            <option data-option="625"    value="D09 Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.">Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.</option>
+                            <option data-option="625"    value="D10 Pagos por servicios educativos (colegiaturas).">Pagos por servicios educativos (colegiaturas).</option>
+                            <option data-option="625"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="625"    value="CP01 Pagos">Pagos</option>
+                            <option data-option="626"    value="G01 Adquisición de mercancías.">Adquisición de mercancías.</option>
+                            <option data-option="626"    value="G02 Devoluciones, descuentos o bonificaciones.">Devoluciones, descuentos o bonificaciones.</option>
+                            <option data-option="626"    value="G03 Gastos en general.">Gastos en general.</option>
+                            <option data-option="626"    value="I01 Construcciones.">Construcciones.</option>
+                            <option data-option="626"    value="I02 Mobiliario y equipo de oficina por inversiones.">Mobiliario y equipo de oficina por inversiones.</option>
+                            <option data-option="626"    value="I03 Equipo de transporte.">Equipo de transporte.</option>
+                            <option data-option="626"    value="I04 Equipo de computo y accesorios.">Equipo de computo y accesorios.</option>
+                            <option data-option="626"    value="I05 Dados, troqueles, moldes, matrices y herramental.">Dados, troqueles, moldes, matrices y herramental.</option>
+                            <option data-option="626"    value="I06 Comunicaciones telefónicas.">Comunicaciones telefónicas.</option>
+                            <option data-option="626"    value="I07 Comunicaciones satelitales.">Comunicaciones satelitales.</option>
+                            <option data-option="626"    value="I08 Otra maquinaria y equipo.">Otra maquinaria y equipo.</option>
+                            <option data-option="626"    value="S01 Sin efectos fiscales.  ">Sin efectos fiscales.  </option>
+                            <option data-option="626"    value="CP01 Pagos">Pagos</option>
+                        </select><br>
+                        <div class="col-sm" style="text-align: center;">
                         <br><p class="bold-small-centrado">Para validar tu identidad te enviaremos un código de validación
                             a tu correo o teléfono celular previamente registrado.</p>
                     <tr>
@@ -786,40 +1001,57 @@
                     </tr>
                     <a type="button" id="run2" class="btn enviar"  style="display:none">Continuar</a>
                     <button type="submit" id="okfor2" style="display:none">cont</button>
-                    </div>
-                </form>
-
-                    <form id="formdomi3" class="default" onkeydown="return event.key != 'Enter';" action="validate" method="post" enctype="multipart/form-data" style="display:none;">{% csrf_token %}
-                            <INPUT id="codi3" name="codi3" style="display:none;">
-                            <INPUT id="RFC2" name="RFC2" style="display:none;">
-                            <INPUT id="tk3" name="tk2" style="display:none;">
-                            <label class="EtiNum">RFC</label>
-                            <input id="INRFC" name="INRFC" type="text" class="camponum" required minlength="10" onkeyup="mayus(this);"  maxlength="10" required onkeypress="return (!(event.charCode >= 32 && event.charCode <= 47 || event.charCode >= 58 && event.charCode <= 64 || event.charCode >= 91 && event.charCode <= 96 || event.charCode >= 123 && event.charCode <= 255))">
-                            <label class="EtiNum" align='right'>Homoclave</label>
-                            <input id="INHOMO" name="INHOMO" type="text" class="camponum" required minlength="3" maxlength="3" onkeyup="mayus(this);"><br>
-                            <label class="EtiNom">Identificación</label>
-                            <input type="file" class="campo" style="display: inline;" name="idUp" required><br>
-                            <label class="EtiNom">Constancia SAT</label>
-                            <input type="file" class="campo" style="display: inline;" name="satUp" required>
-                            <label style='float: right;'>No cuentas con ella,<br> click <a href="https://www.sat.gob.mx/aplicacion/53027/genera-tu-constancia-de-situacion-fiscal" target="_blank">aqui</a></label>
-                    <div class="col-sm" style="text-align: center;">
-                        <br><p class="bold-small-centrado">Para validar tu identidad te enviaremos un código de validación
-                            a tu correo o teléfono celular previamente registrado.</p>
-                    <tr>
-                        <input type="radio" name="OTP3" value="mail" id="mail3"/>
-                        <label for="mail"> Correo electrónico </label>
-                        <input type="radio" name="OTP3" value="SMS" id="SMS3"/>
-                        <label for="SMS">SMS</label><br>
-                        <div class="bold-small-centrado" id="cont3"></div>
-                    </tr>
-                    <a type="button" id="run3" class="btn enviar"  style="display:none">Continuar</a>
-                    <button type="submit" id="okfor3" style="display:none">cont</button>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                     </div>
                     </form>
+                </div>
     </div>
-</div><!--Cambio de generales-->
+</div><!--Cambio datos de facturacion-->
+ <div id="botonesDatosrefact" class="container-fluid" style="width: 60%; margin-top: 15px;">
+    <div class="row">
+            <div style="text-align: center;">
+                <br>
+                <br>
+                <p>
+                    <b>Sí alguna de tus facturas de pedidos presenta inconsistencias en tus datos</b>, aquí podrás corregirlas; <b>toma en cuenta que solo podrás refacturar durante el año fiscal vigente.</b>
+                    Recuerda tener a la mano los datos de tu constancia de situación fiscal
+                </p>
+                <a href="https://www.sat.gob.mx/aplicacion/53027/genera-tu-constancia-de-situacion-fiscal" target="_blank">Consulta aquí</a>
+                <br>
+                <br>
+                <div class="cen">
+                    <button type="button" class="btn enviar2" onclick="desactivar()">Salir</button>
+<!--                    <button class="btn enviar" onclick="window.open('https://emision-natura-portal-auto-prod.pegasotecnologia.mx/','_blank')">Continuar</button>-->
+                    <button class="btn enviar" data-toggle="modal" data-target="#myModal2">Continuar</button>
+                        <div class="modal fade" id="myModal2" role="dialog" data-backdrop="static" data-keyboard="false">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header" style="background-color:#eb6619;">
+                                <h3 class="modal-title w-100 text-center" style="color:#ffffff;">Atención</h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                  <p align="center">Querida consultora, este servicio se encontrara disponible en las próximas 48 hrs.</p>
+                            </div>
+                            <div class="modal-footer" style="align-items: baseline;">
+                              <button type="button" class="enviar" data-dismiss="modal">Regresar</button>
+                            </div>
+                            </div>
 
-    <footer style="height: 50px; width: 100%; overflow: hidden; background-color:#000000;">
+                            </div>
+                        </div> <!--modal-->
+                </div>
+            </div>
+    </div>
+</div><!--Cambio datos de refacturacion-->
+
+</div>
+    <footer style="position: fixed; padding: 10px 10px 0px 10px; bottom: 0; width: 100%; height: 60px; background-color:#000000;">
         <div class="cen" style="text-align: center;">
             <table>
                 <tr>
@@ -840,5 +1072,67 @@
         </div>
     </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    var btn_cons = document.getElementById("btn_consul");
+    btn_cons.addEventListener("click", function(){
+       var cn_validar = document.getElementById("codig").value;
+       var id_tik = document.getElementById("num_fol").value;
+       const url ='/cambiodatos/thread/' + id_tik;
+       axios.get(url)
+           .then(response => {
+                datos = response.data;
+                document.getElementById("solcicitud").innerHTML = datos[0].id_sol;
+                document.getElementById("tip_sol").innerHTML = datos[0].tipo_sol;
+                document.getElementById("est_sol").innerHTML = datos[0].status_sol;
+                document.getElementById("fech_Sol").innerHTML = datos[0].fecha_ult_mod;
+
+                element = document.getElementById("track_info");
+                element.style.display='block';
+           }, error => {
+                console.log(error);
+                alert("Num folio incorrecto o ")
+           });
+       const url2 ='/cambiodatos/thread_siv/' + id_tik;
+       axios.get(url2)
+           .then(response => {
+                datos2 = response.data;
+                if (datos2[0]['estatus'] == null ){
+                        element = document.getElementById("track_info_siv");
+                        element.style.display='none';
+                }else{
+                    if(datos2[0]['estatus']['resultado'].veredicto == 'NO FAVORABLE'){
+                        document.getElementById("solcicitud1").innerHTML = '';
+                        document.getElementById("est_sol1").innerHTML = '';
+                        document.getElementById("mot_rech1").innerHTML = '';
+                        document.getElementById("coment1").innerHTML = '';
+
+                        document.getElementById("solcicitud1").innerHTML = datos2[0].id_sol;
+                        document.getElementById("est_sol1").innerHTML = 'RECHAZADO';
+                        document.getElementById("mot_rech1").innerHTML = datos2[0]['estatus']['motivo_rechazo'].motivo_rechazo;
+                        document.getElementById("coment1").innerHTML = datos2[0]['estatus'].comentarios;
+
+                        element = document.getElementById("track_info_siv");
+                        element.style.display='block';
+                    }
+                    if(datos2[0]['estatus']['resultado'].veredicto == 'FAVORABLE'){
+                        document.getElementById("solcicitud1").innerHTML = '';
+                        document.getElementById("est_sol1").innerHTML = '';
+                        document.getElementById("mot_rech1").innerHTML = '';
+                        document.getElementById("coment1").innerHTML = '';
+
+                        document.getElementById("solcicitud1").innerHTML = datos2[0].id_sol;
+                        document.getElementById("est_sol1").innerHTML = 'APROBADO';
+                        document.getElementById("coment1").innerHTML = datos2[0]['estatus'].comentarios;
+
+                        element = document.getElementById("track_info_siv");
+                        element.style.display='block';
+                    }
+                }
+           }, error => {
+                console.log(error);
+           });
+
+    });
+</script>
 </body>
 </html>

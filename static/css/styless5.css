@@ -24,12 +24,7 @@ body {
 	font-family: "Helvetica now", serif;
 }
 /*form styles*/
-#msform {
-	width: 400px;
-	margin: 50px auto;
-	text-align: center;
-	position: relative;
-}
+
 #msform fieldset {
 	background: white;
 	border: 0 none;

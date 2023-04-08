@@ -365,6 +365,24 @@ button{
       .enviar:active{
         opacity: 0.4;
       }
+      .enviar2{
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-top: 10px;
+        margin-bottom: 0px;
+        width: 100px;
+        height: 35px;
+        color: white;
+        background-color: rgb(138,138,138);
+        border: none;
+      }
+
+      .enviar2:hover{
+        opacity: 0.8;
+      }
+      .enviar2:active{
+        opacity: 0.4;
+      }
 
       .actualizacion{
         text-align: center;

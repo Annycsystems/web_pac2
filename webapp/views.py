@@ -272,7 +272,7 @@ def Tick_val(request):
         document.save()
         document2 = track_sol(
             id_sol=id_sol,
-            Status_sol=Status_sol,
+            status_sol=Status_sol,
             fecha_ult_mod=Fecha_sol,
             usuario_mod_sol=usr_mod
         )
